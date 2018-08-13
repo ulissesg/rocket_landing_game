@@ -51,5 +51,14 @@ for cont in range(1,1001):
     print(res)
 
 
-    
 
+'''
+Bhaskara de exemplos aleatorios com parametros de 0 a 100
+'''
+import random
+for cont in range(1000):
+    a = random.randrange(1,101)
+    b = random.randrange(1,101)
+    c = random.randrange(1,101)
+    res = bhaskara(a,b,c)
+    print("Resultado para a =",a,"b =",b,"c =",c,"é",res)

@@ -10,6 +10,8 @@ ALTURA_PADRAO = 300
 COR_BRANCO = (255, 255, 255)
 cor_fundo = COR_BRANCO
 
+
+
 '''
 Int, Int, [Cor] -> Tela
 Cria tela base do aplicativo.
@@ -256,15 +258,15 @@ Surface, Surface, Int, Int -> Surface
 Coloca uma imagem (tipo pg.Surface) sobre outra na posição x e y, considerando 
 a posição da imagem como seu centro.
 '''
-def colocar_imagem_sobre(img1, img2, x, y):
+def colocar_imagem(img1, img2, x, y):
 	return img1.blit(img2, (x - img2.get_width()//2, y - img2.get_height()//2))
 
 '''
 Surface, Surface -> Surface
 Sobrepõe telas, de modo a facilitar a geração de imagens.
 '''
-def sobrepor_telas(tela1, tela2):
-    return colocar_imagem_sobre(tela1, tela2, tela1.get_width()//2, tela1.get_height()//2)
+def sobrepor(img1, tela2):
+    return colocar_imagem(img1, tela2, img1.get_width() // 2, img1.get_height() // 2)
 
 
 def mostrar(funcao_desenha, *args):
@@ -284,7 +286,7 @@ def mostrar(funcao_desenha, *args):
 Surface, Int, Int -> void
 '''
 def colocar_imagem_sobre_tela_e_mostrar(img, x, y):
-    mostrar(colocar_imagem_sobre, tela, img, x, y)
+    mostrar(colocar_imagem, tela, img, x, y)
 
 
 

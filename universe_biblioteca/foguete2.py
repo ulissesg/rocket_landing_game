@@ -66,7 +66,7 @@ Desenha foguete na tela
 '''
 def desenha(y):
     # pg.draw.circle(TELA, (203,230,67), (X, y), 20)
-    img = colocar_imagem_sobre(tela, IMG_FOGUETE, X, y - A_FOGUETE + 28)
+    img = colocar_imagem(tela, IMG_FOGUETE, X, y - A_FOGUETE + 28)
     return img
 
 
