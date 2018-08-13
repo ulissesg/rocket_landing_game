@@ -9,6 +9,6 @@ distancia = int(entrada) #converte entrada para int, pois problema definiu que e
 
 #... CALCULA RESULTADO
 
-resultado = 60  #supondo que resultado dê 60. Deve ser substituído por verdadeiro resultado
+resultado = 60  #supondo que resultado dê 60. Deve ser substituído pelo verdadeiro resultado
 
 print(resultado, "minutos") #printa na tela, ou retorna resultado esperado pelo URI
