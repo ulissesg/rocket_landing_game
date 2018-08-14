@@ -72,7 +72,7 @@ def big_bang(inic,
         tela.fill(cor_fundo)
         desenhar(estado)
         if modo_debug:
-            escreve_estado(estado, tela, fonte_debug)
+            escreve_estado(estado, fonte_debug)
 
         clock.tick(frequencia)
 
@@ -246,6 +246,21 @@ def carregar_imagem(nome_arquivo, largura=100, altura=None, img_substituta=None)
         return img
 
 
+def lado(img1, img2):
+    fundo = folha_transparente(img1.get_width() + img2.get_width(),
+                                    max(img1.get_height(), img2.get_height()))
+    colocar_imagem(img1, fundo, img1.get_width()//2, fundo.get_height()//2)
+    colocar_imagem(img2, fundo, img1.get_width() + img2.get_width()//2, fundo.get_height()//2)
+    return fundo
+
+
+def encima(img1, img2):
+    fundo = folha_transparente(max(img1.get_width(), img2.get_width()),
+                               img1.get_height() + img2.get_height())
+    colocar_imagem(img1, fundo, fundo.get_width()//2, img1.get_height()//2)
+    colocar_imagem(img2, fundo, fundo.get_width()//2, img1.get_height() + img2.get_height()//2)
+    return fundo
+
 
 
 '''
@@ -259,14 +274,15 @@ Coloca uma imagem (tipo pg.Surface) sobre outra na posição x e y, considerando
 a posição da imagem como seu centro.
 '''
 def colocar_imagem(img1, img2, x, y):
-	return img1.blit(img2, (x - img2.get_width()//2, y - img2.get_height()//2))
+    img2.blit(img1, (x - img1.get_width()//2, y - img1.get_height()//2))
+    return img2
 
 '''
 Surface, Surface -> Surface
 Sobrepõe telas, de modo a facilitar a geração de imagens.
 '''
-def sobrepor(img1, tela2):
-    return colocar_imagem(img1, tela2, img1.get_width() // 2, img1.get_height() // 2)
+def sobrepor(img1, tela):
+    return colocar_imagem(img1, tela, img1.get_width() // 2, img1.get_height() // 2)
 
 
 def mostrar(funcao_desenha, *args):
@@ -286,7 +302,7 @@ def mostrar(funcao_desenha, *args):
 Surface, Int, Int -> void
 '''
 def colocar_imagem_sobre_tela_e_mostrar(img, x, y):
-    mostrar(colocar_imagem, tela, img, x, y)
+    mostrar(colocar_imagem, img, tela, x, y)
 
 
 
