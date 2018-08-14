@@ -15,8 +15,9 @@ TELA = criar_tela_base(LARGURA, ALTURA)
 L_FOGUETE = 60
 A_FOGUETE = 100
 IMG_FOGUETE = retangulo(60, 100, pg.color.Color("darkred"))
-
-
+IMG_FOGUETE = girar(IMG_FOGUETE, 45)
+BOLA = circulo(50, Cor("yellow"))
+IMG_FOGUETE = sobrepor(IMG_FOGUETE, BOLA)
 
 # X = 200  #numero magico
 X = LARGURA // 2

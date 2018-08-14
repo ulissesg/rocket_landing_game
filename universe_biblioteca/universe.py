@@ -217,6 +217,16 @@ def circulo(raio, cor):
     return img
 
 '''
+Int, Cor -> Surface
+'''
+def quadrado(lado, cor):
+    return retangulo(lado, lado, cor)
+
+
+def poligono(lista_de_pontos, cor):
+    return
+
+'''
 Int, Int -> Surface
 '''
 def folha_transparente(largura, altura):
@@ -229,6 +239,9 @@ Surface, Int, Int -> Surface
 def definir_dimensoes(imagem, largura, altura):
     return pg.transform.scale(imagem, (largura, altura))
 
+
+def girar(imagem, angulo):
+    return pg.transform.rotate(imagem, angulo)
 
 '''
 String, [Int, Int, Surface] -> Surface
@@ -245,7 +258,10 @@ def carregar_imagem(nome_arquivo, largura=100, altura=None, img_substituta=None)
                 else texto("Não foi possível carregar imagem", Fonte("monospace", 15), Cor("red"), largura)
         return img
 
-
+'''
+Surface, Surface -> Surface
+Coloca uma imagem ao lado da outra
+'''
 def lado(img1, img2):
     fundo = folha_transparente(img1.get_width() + img2.get_width(),
                                     max(img1.get_height(), img2.get_height()))
@@ -254,6 +270,10 @@ def lado(img1, img2):
     return fundo
 
 
+'''
+Surface, Surface -> Surface
+Coloca uma imagem acima da outra
+'''
 def encima(img1, img2):
     fundo = folha_transparente(max(img1.get_width(), img2.get_width()),
                                img1.get_height() + img2.get_height())
@@ -261,7 +281,24 @@ def encima(img1, img2):
     colocar_imagem(img2, fundo, fundo.get_width()//2, img1.get_height() + img2.get_height()//2)
     return fundo
 
+'''
+Surface, Surface -> Surface
+Sobrepõe imagens, de modo a facilitar a geração de imagens.
+'''
+def sobrepor(img1, img2):
+    altura_maxima = max(img1.get_height(), img2.get_height())
+    largura_maxima = max(img1.get_width(), img2.get_width())
+    fundo = folha_transparente(largura_maxima, altura_maxima)
+    fundo = colocar_imagem(img2, fundo, largura_maxima//2, altura_maxima//2)
+    fundo = colocar_imagem(img1, fundo, largura_maxima//2, altura_maxima//2)
+    return fundo
 
+
+def largura_imagem(img):
+    return img.get_width()
+
+def altura_imagem(img):
+    return img.get_height()
 
 '''
 FUNÇÕES DE CRIAÇÃO DE TELA E SOBREPOSIÇÕES
@@ -276,13 +313,6 @@ a posição da imagem como seu centro.
 def colocar_imagem(img1, img2, x, y):
     img2.blit(img1, (x - img1.get_width()//2, y - img1.get_height()//2))
     return img2
-
-'''
-Surface, Surface -> Surface
-Sobrepõe telas, de modo a facilitar a geração de imagens.
-'''
-def sobrepor(img1, tela):
-    return colocar_imagem(img1, tela, img1.get_width() // 2, img1.get_height() // 2)
 
 
 def mostrar(funcao_desenha, *args):
