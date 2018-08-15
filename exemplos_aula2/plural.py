@@ -8,9 +8,12 @@ import unittest
 a palavra. Ex: 'carro' -> 'carros'
 '''
 
-
-
-
+'''
+plural: String -> String
+Colocar a palavra no plural
+'''
+def plural(p):
+    return p + "s"
 
 
 '''Para cada nova funcao criada, voce deve criar uma funcao
@@ -18,14 +21,9 @@ dentro da classe Test para testá-la, conforme o template
 '''
 class Test(unittest.TestCase):
 
-    pass #retirar após colocar primeiro teste
+    def test_plural(self):
+        self.assertEqual(   plural("mesa"), "mesas"   )
+        self.assertEqual(   plural("cadeira"), "cadeiras"   )
 
-    #...
-''' <<template>>
-def test_<nome_funcao>(self):
-    self.assertEqual(<chamada_da_funcao>, <resultado_esperado>)
-    self.assertEqual(<chamada_da_funcao>, <resultado_esperado>)
-    ...
-'''
 
-unittest.main()  #não excluir (a menos que esteja rodando como unit test no PyCharm)
+# unittest.main()  #não excluir (a menos que esteja rodando como unit test no PyCharm)
