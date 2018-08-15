@@ -62,3 +62,5 @@ for cont in range(1000):
     c = random.randrange(1,101)
     res = bhaskara(a,b,c)
     print("Resultado para a =",a,"b =",b,"c =",c,"é",res)
+
+

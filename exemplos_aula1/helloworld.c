@@ -10,6 +10,8 @@ gcc helloworld.c -o helloworld      (gera executável de nome 'helloworld')
 ./helloworld                        (executa programa)
 
 OBS: Uma IDE NÃO é um compilador: apenas chama um compilador.
+
+IDE = Integrated Development Environment
 */
 
 int main(){
