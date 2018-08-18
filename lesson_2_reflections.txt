@@ -3,6 +3,7 @@ It can list the things you changed in a folder, so them you can track the histor
 
 How is the staging area different from the working directory and the repository?
 What value do you think it offers?
+the staging area is where you put your file or files to be commited, so you can only commit on operation each time, but that don`t mean you can only put one file in that operation.
 
 How can you use the staging area to make sure you have one commit per logical
 change?
