@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from universe import *
+from htdp_pt_br.universe import *
 
 
 (LARGURA, ALTURA) = (400, 400)
