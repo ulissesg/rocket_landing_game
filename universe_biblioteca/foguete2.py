@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from htdp.universe import *
+from universe import *
 
 ''' Programa do Foguete '''
 
