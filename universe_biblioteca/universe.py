@@ -343,3 +343,59 @@ def mostrar_tela():
         pg.display.flip()
         # tela.blit(folha_transparente(0, 0), (0, 0))
 
+'''
+FUNÇÕES DE CRIAÇÃO E MANIPULAÇÃO DE ESTRUTURAS
+'''
+
+
+
+def definir_estrutura(nome, campos, mutavel=False):
+    if isinstance(campos, str):
+        import re
+        campos = [campo for campo in re.split(' |,', campos) if campo != '']
+    elif isinstance(campos, tuple):
+        campos = list(campos)
+    if not mutavel:
+        from collections import namedtuple
+        return namedtuple(nome, campos)
+    else:
+
+        # def to_string(self): pass
+        # def construtor(self): pass
+
+        from namedlist import namedlist
+        return namedlist(nome, campos)
+
+        # construtor_str = "def construtor(self,"
+        # for campo in campos:
+        #     construtor_str += campo + ","
+        # construtor_str = construtor_str[:-1] + "): "
+        # for campo in campos:
+        #     construtor_str += "self."+campo+"="+campo+";"
+        # # print(construtor_str)
+        #
+        # to_string_str = "def to_string(self):"
+        # to_string_str += "return '["
+        # for campo in campos:
+        # to_string_str += campo+" = '+self."+campo+"+', "
+        # to_string_str = to_string_str[:-2] + "]'"
+        #
+        #
+        # exec(construtor_str)
+        # exec(to_string_str)
+        #
+        # # print(to_string_str)
+        # NewClass = type(nome, (object,), {
+        #     "__init__": construtor,
+        #     "string_val": to_string,
+        # })
+        #
+        # return NewClass
+
+
+
+
+Pessoa = definir_estrutura('Pessoa', 'x y', mutavel = True)
+p = Pessoa("Helio", "060")
+print(p.x)
+print(p.y)
