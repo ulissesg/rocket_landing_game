@@ -23,6 +23,10 @@ def fizzbuzz(n):
         return n
 
 
+#listando:
+for k in range(1000):
+    print(fizzbuzz(k))
+
 
 class Test(unittest.TestCase):
 
@@ -33,6 +37,6 @@ class Test(unittest.TestCase):
         self.assertEqual(fizzbuzz(2), 2)
         self.assertEqual(fizzbuzz(30), "fizzbuzz")
 
-
+# unittest.main()
 
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import unittest
 '''Importe outras bibliotecas abaixo'''
 
 
@@ -17,6 +16,18 @@ comentarios na frente de #).
 '''
 1. Defina uma funcao que encontre o maior valor entre 2 valores dados
 '''
+
+'''
+maior: Float Float -> Float   #ASSINATURA
+Encontrar o maior entre 2 valores.
+'''
+#STUB (PROTOTIPO BOBO)
+def maior(n1, n2):
+    if n2 > n1:
+        return n2
+    #else
+    return n1
+
 
 
 '''
@@ -95,20 +106,3 @@ unidades de medida do sistema ingles:
 #escreva seu programa aqui (incluindo assinatura, codigo e stub).
 #os testes devem ser feitos dentro da classe Tests no final do arquivo
 
-
-'''Para cada nova funcao criada, voce deve criar uma funcao
-dentro da classe Test para testá-la, conforme o template
-'''
-class Test(unittest.TestCase):
-
-    pass #retirar após colocar primeiro teste
-
-    #...
-''' <<template>>
-def test_<nome_funcao>(self):
-    self.assertEqual(<chamada_da_funcao>, <resultado_esperado>)
-    self.assertEqual(<chamada_da_funcao>, <resultado_esperado>)
-    ...
-'''
-
-unittest.main()  #não excluir (a menos que esteja rodando como unit test no PyCharm)
