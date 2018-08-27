@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from htdp.universe import *
+from universe import *
 
 ''' Programa do Foguete '''
 
@@ -76,16 +76,19 @@ def desenha(y):
 
 ''' Foguete -> Foguete '''
 ''' inicie o mundo com main()'''
-def main():
-    big_bang(F_INICIAL,
-             quando_tick=desce, \
-             desenhar=desenha)
-
-
-
-main()
+# def main():
+#     big_bang(F_INICIAL,
+#              quando_tick=desce, \
+#              desenhar=desenha)
+#
+#
+#
+# main()
 # mostrar(desenha, 400)
 # animar(desenha)
+
+tela = colocar_imagem(IMG_FOGUETE, tela, 200, 200)
+mostrar_tela()
 
 # colocar_imagem_sobre_tela_e_mostrar(IMG_FOGUETE, 200, 200)
     

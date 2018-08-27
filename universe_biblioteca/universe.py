@@ -335,6 +335,13 @@ def colocar_imagem_sobre_tela_e_mostrar(img, x, y):
     mostrar(colocar_imagem, img, tela, x, y)
 
 
+def mostrar_tela():
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                sys.exit(0)
+        pg.display.flip()
+        # tela.blit(folha_transparente(0, 0), (0, 0))
 
 '''
 FUNÇÕES DE CRIAÇÃO E MANIPULAÇÃO DE ESTRUTURAS
