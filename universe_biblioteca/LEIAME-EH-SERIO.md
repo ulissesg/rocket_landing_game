@@ -1,8 +1,4 @@
-# Exemplos e exercícios de Oficina de Computação (2018)
-
-##Instalação:
-
-O arquivo universe.py contido na pasta ``universe_biblioteca`` é apenas para testes isolados, e não está atualizado.
+O arquivo universe.py contido nesta pasta é apenas para testes isolados, e não está atualizado.
 
 Para utilizar a biblioteca, agora você deve instalá-la via PIP:
 
@@ -25,5 +21,3 @@ Para utilizar a biblioteca, você deve importá-la da seguinte forma no início 
 Caso você for trabalhar apenas com imagens (sem animações), poderá importar apenas o módulo ``image``:
 
 > from htdp_pt_br.image import *
-
-DIVIRTAM-SE!!
