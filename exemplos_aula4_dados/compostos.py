@@ -12,7 +12,7 @@ from htdp_pt_br.universe import *
 #         self.grr = grr
 #         self.idade = idade
 
-
+'''Demonstração de como criar estrutura composta:'''
 
 Aluno = definir_estrutura("Aluno", "nome, cpf, grr, idade")
 
@@ -40,6 +40,8 @@ print(posicao1)
 
 
 
+'''========= Definição de Dados ============='''
+'''Sempre deve-se seguir a receita 'Como Projetar Dados', como no exemplo a seguir: '''
 
 Musica = definir_estrutura("Musica", "titulo, artista, duracao, album, genero")
 '''
@@ -63,7 +65,7 @@ def fn_para_musica(m):
 '''
 
 
-
+'''===== Funções ======'''
 '''
 duracao_maior: Musica Musica -> Musica
 Encontra a musica com a maior duração.

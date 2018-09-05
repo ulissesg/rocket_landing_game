@@ -137,7 +137,7 @@ Para ajudar a criar alguns exemplos, abaixo temos alguns fatos sobre alguns film
 "The Avengers" - custo: 220000000 lancamento: 2012
 
 No entanto, sinta-se livre para pesquisar.
-DICA: terá que usar namedtuple ou class para criar um tipo composto (veja arquivo de exemplos)
+DICA: terá que usar 'definir_estrutura' para criar um tipo composto (veja arquivo de exemplos)
 '''
 
 ###escreva a definição aqui
