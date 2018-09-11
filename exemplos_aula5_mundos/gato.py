@@ -71,7 +71,7 @@ def parar(gato):
 def main(gato):
     big_bang(0, \
              tela=tela, \
-             quando_tick=mover, \
+             a_cada_tick=mover, \
              desenhar=desenha, \
              quando_tecla=trata_tecla, \
              quando_mouse=trata_mouse
