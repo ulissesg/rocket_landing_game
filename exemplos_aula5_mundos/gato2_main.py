@@ -9,7 +9,7 @@ from gato2 import  *
 ''' inicie o mundo com GATO_INICIAL '''
 def main(inic):
     big_bang(inic, frequencia=FREQUENCIA,
-             quando_tick=mover,  #Gato -> Gato  #LISTA DE DESEJOS
+             a_cada_tick=mover,  #Gato -> Gato  #LISTA DE DESEJOS
              desenhar=desenha,   #Gato -> Imagem
              quando_tecla=trata_tecla, #Gato, Tecla -> Gato
              parar_quando=final_da_tela,  #Gato -> Boolean
