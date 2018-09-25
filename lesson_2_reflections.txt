@@ -7,11 +7,14 @@ the staging area is where you put your file or files to be commited, so you can 
 
 How can you use the staging area to make sure you have one commit per logical
 change?
+i don't know yet.
 
 What are some situations when branches would be helpful in keeping your history
 organized? How would branches help?
+they help us to make a change when we want to keep a other version, them you have two version or more of that.
 
 How do the diagrams help you visualize the branch structure?
+they help us visualize where is the version that we want, and how to get there
 
 What is the result of merging two branches together? Why do we represent it in
 the diagram the way we do?
