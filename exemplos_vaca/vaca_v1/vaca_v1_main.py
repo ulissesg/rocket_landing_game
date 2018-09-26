@@ -12,7 +12,8 @@ def main(inic):
              quando_tick=mover_vaca,  # Vaca -> Vaca
              desenhar=desenha_vaca,   # Vaca -> Imagem
              quando_tecla=trata_tecla, # Vaca Tecla -> Vaca
-             modo_debug=True
+             modo_debug=True,
+             cor_fundo=Cor("lightgreen")
              )
 
 main(VACA_INICIAL)

@@ -9,3 +9,7 @@ Use a receita de como projetar mundos e o template mundo.
 
 
 '''
+
+SABE ONDE ACHAR?
+
+PRECISA DE AJUDA NESTE?

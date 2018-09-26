@@ -9,10 +9,11 @@ from htdp_pt_br.universe import *
 '''# Preparacao da Tela e Constantes: '''
 
 LARGURA, ALTURA = 600, 400
-tela = criar_tela_base(LARGURA, ALTURA, fundo=Cor("green")) #descomente isso
+tela = criar_tela_base(LARGURA, ALTURA) #descomente isso
 
 Y = ALTURA // 2
-IMG_VACA_INO = carregar_imagem("vaca.png")
+IMG_VACA_INO = carregar_imagem("../figuras/vaca.png")  #caminho relativo
+# caminho absoluto?  "c:/user/dkdk/"  "/home/fulano/..."
 IMG_VACA_VORTANO = espelhar(IMG_VACA_INO, True, False)
 FREQUENCIA = 60
 
@@ -70,6 +71,7 @@ def mover_vaca(vaca):
 desenha_vaca: Vaca -> Imagem
 Desenha a vaca na posicao x'''
 def desenha_vaca(vaca):
+    # colocar_imagem(FUNDO, tela, )
     if vaca.dx >= 0:
         colocar_imagem(IMG_VACA_INO, tela, vaca.x, Y)
     else:
