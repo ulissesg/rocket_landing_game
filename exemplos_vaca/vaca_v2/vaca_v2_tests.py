@@ -38,5 +38,26 @@ class Test(unittest.TestCase):
         ## CASO COLISAO
         # !!!  TODO
 
+    def test_mover_churras(self):
+        ## CASOS NORMAIS (ANDANDO)
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_CIMA, 3)), Churrasqueiro(LARGURA//2, LIMITE_CIMA + 3, 3))
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_CIMA + 3, 3)), Churrasqueiro(LARGURA//2, LIMITE_CIMA + 6, 3))
+
+        ## CASO EM QUE TOCA NO LIMITE BAIXO
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_BAIXO, 3)), Churrasqueiro(LARGURA//2, LIMITE_BAIXO, -3))
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_BAIXO - 2, 3)), Churrasqueiro(LARGURA//2, LIMITE_BAIXO - 2, -3))
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_BAIXO - 1, 3)), Churrasqueiro(LARGURA//2, LIMITE_BAIXO - 1, -3))
+
+        ## CASO ANDANDO PARA TRÁS
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_BAIXO, -3)), Churrasqueiro(LARGURA//2, LIMITE_BAIXO - 3, -3))
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, ALTURA // 2, -3)), Churrasqueiro(LARGURA//2, ALTURA // 2 - 3, -3))
+
+        ## CASO EM QUE TOCA NO LIMITE CIMA
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_CIMA, -3)), Churrasqueiro(LARGURA//2, LIMITE_CIMA, 3))
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_CIMA + 1, -3)), Churrasqueiro(LARGURA//2, LIMITE_CIMA + 1, 3))
+        self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_CIMA + 2, -3)), Churrasqueiro(LARGURA//2, LIMITE_CIMA + 2, 3))
+
+
+
 
 # unittest.main()  #não excluir (a menos que esteja rodando como unit test no PyCharm)
