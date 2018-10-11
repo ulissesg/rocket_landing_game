@@ -84,23 +84,48 @@ def fn_para_churras(churras):
         churras.dy
 '''
 
+'''
+ListaChurras é um desses:
+    - VAZIA
+    - juntar(Churrasqueiro, ListaChurras)
+'''
+#Exemplos:
+L_CHURRAS_1 = criar_lista(CHURRAS_INICIAL)
+L_CHURRAS_INICIAL = criar_lista(
+    Churrasqueiro(LARGURA//4, LIMITE_CIMA, 3),
+    Churrasqueiro(LARGURA//2, ALTURA//2, 3),
+    Churrasqueiro(LARGURA//2 + LARGURA//4, LIMITE_BAIXO, 3)
+)
 
-Jogo = definir_estrutura("Jogo", "vaca, churras, game_over")
-''' Jogo pode ser formado assim: Jogo(Vaca, Churrasqueiro, Boolean)
-interp. representa o jogo todo com uma vaca e um churrasqueiro. O campo
+'''
+#template
+def fn_para_lista(lista):
+    if lista.vazia:
+        return ...
+    else:
+        ... lista.primeiro
+            fn_para_lista(lista.resto)
+'''
+
+
+Jogo = definir_estrutura("Jogo", "vaca, churrasqueiros, game_over")
+''' Jogo pode ser formado assim: Jogo(Vaca, ListaChurras, Boolean)
+interp. representa o jogo todo com uma vaca e zero ou mais churrasqueiros. O campo
 game_over indica se o jogo está acabado ou não.
 '''
 #EXEMPLOS:
-JOGO_INICIAL = Jogo(VACA_INICIAL, CHURRAS_INICIAL, False)  #CHAMANDO CONSTRUTOR
-JOGO_MEIO = Jogo(Vaca(LARGURA//4, 3), Churrasqueiro(LARGURA//2, ALTURA//4, 6), False)
-JOGO_COLIDINDO = Jogo(VACA_MEIO, CHURRAS_MEIO, False)
-JOGO_GAME_OVER = Jogo(VACA_MEIO, CHURRAS_MEIO, True)
+JOGO_INICIAL_ANTIGO = Jogo(VACA_INICIAL, criar_lista(CHURRAS_INICIAL), False)  #CHAMANDO CONSTRUTOR
+JOGO_MEIO = Jogo(Vaca(LARGURA//4, 3), criar_lista(Churrasqueiro(LARGURA//2, ALTURA//4, 6)), False)
+JOGO_COLIDINDO = Jogo(VACA_MEIO, criar_lista(CHURRAS_MEIO), False)
+JOGO_GAME_OVER = Jogo(VACA_MEIO, criar_lista(CHURRAS_MEIO), True)
+
+JOGO_INICIAL = Jogo(VACA_INICIAL, L_CHURRAS_INICIAL, False)
 
 #TEMPLATE
 '''
 def fn_para_jogo(jogo):
     ... jogo.vaca
-        jogo.churras
+        jogo.churrasqueiros
         jogo.game_over
 '''
 
@@ -132,14 +157,38 @@ def colidirem(vaca, churras):
 
 
 '''
+colidir_algum_churras: Vaca, ListaChurras -> Boolean
+!!! TODO
+'''
+def colide_algum_churras(vaca, churrasqueiros):
+    if churrasqueiros.vazia:
+        return False
+    else:
+        return colidirem(vaca, churrasqueiros.primeiro) \
+               or colide_algum_churras(vaca, churrasqueiros.resto)
+
+
+'''
+mover_churrasqueiros: ListaChurras -> ListaChurras
+!!! TODO
+'''
+def mover_churrasqueiros(churrasqueiros):
+    if churrasqueiros.vazia:
+        return churrasqueiros
+    else:
+        return juntar(mover_churras(churrasqueiros.primeiro),
+                      mover_churrasqueiros(churrasqueiros.resto))
+
+
+'''
 mover_tudo: Jogo -> Jogo
 Produz o próximo estado do jogo
 '''
 def mover_tudo(jogo):
-    if (not colidirem(jogo.vaca, jogo.churras)):
+    if (not colide_algum_churras(jogo.vaca, jogo.churrasqueiros)):
         nova_vaca = mover_vaca(jogo.vaca)   ##funcao helper (auxiliar)
-        novo_churras = mover_churras(jogo.churras)  ##funcao helper
-        return Jogo(nova_vaca, novo_churras, False)
+        novos_churras = mover_churrasqueiros(jogo.churrasqueiros)  ##funcao helper
+        return Jogo(nova_vaca, novos_churras, False)
     else:
         return Jogo(jogo.vaca, jogo.churras, True)
 
@@ -173,6 +222,7 @@ desenha_vaca: Vaca -> Imagem
 Desenha a vaca na posicao x'''
 def desenha_churras(churras):
     colocar_imagem(IMG_CHURRASQUEIRO, tela, churras.x, churras.y)
+
 
 '''
 desenha_game_over: -> Imagem
@@ -208,6 +258,7 @@ def desenha_vaca(vaca):
 trata_tecla_jogo: Jogo, Tecla -> Jogo
 Trata tecla para o jogo todo.
 '''
+# !!! TODO
 def trata_tecla_jogo(jogo, tecla):
     if (not jogo.game_over):
         nova_vaca = trata_tecla_vaca(jogo.vaca, tecla)
