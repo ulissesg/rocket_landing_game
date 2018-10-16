@@ -1,17 +1,17 @@
 from htdp_pt_br.base import definir_estrutura
 
-vazia = None
+VAZIA = None
 Lista = definir_estrutura("Lista", "primeiro, resto")
 '''
 ListaInteiros é um desses:
 - Lista(Int, ListaInteiros) ou
-- vazia
+- VAZIA
 interp. uma lista vazia é representada por VAZIA (None), senão
 é representada como uma estrutura do tipo Lista.
 Exemplos:
 '''
-L_VAZIA = vazia
-L_1 = Lista(1, vazia)
+L_VAZIA = VAZIA
+L_1 = Lista(1, VAZIA)
 L_2 = Lista(5, L_1)
 L_3 = Lista(7, L_2)
 
@@ -31,8 +31,8 @@ def fn_para_listainteiros(lista):
 dobra_todos: ListaInteiros -> ListaInteiros
 '''
 def dobra_todos(lista):
-    if lista is vazia:
-        return vazia
+    if lista is VAZIA:
+        return VAZIA
     else:
         return Lista(lista.primeiro*2,
                      dobra_todos(lista.resto))
@@ -42,7 +42,7 @@ def dobra_todos(lista):
 soma_todos: ListaInteiros -> Int
 '''
 def soma_todos(lista):
-    if lista is vazia:
+    if lista is VAZIA:
         return 0
     else:
         return lista.primeiro + soma_todos(lista.resto)
@@ -57,8 +57,8 @@ print(soma_todos(L_3))
 map: ListaInteiros -> Lista
 '''
 def map(funcao, lista):
-    if lista is vazia:
-        return vazia
+    if lista is VAZIA:
+        return VAZIA
     else:
         return Lista(funcao(lista.primeiro),
                      map(funcao, lista.resto))
@@ -73,7 +73,7 @@ print(map(lambda x: x*2, L_3))
 reduce: ListaInteiros -> Inteiro
 '''
 def reduce(funcao, lista, acc=0):
-    if lista is vazia:
+    if lista is VAZIA:
         return acc
     else:
         atual = funcao(acc, lista.primeiro)
