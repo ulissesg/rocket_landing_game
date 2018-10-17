@@ -57,5 +57,5 @@ print(L_10.map(math.sqrt))
 import operator
 
 
-print(L_10.reduce(operator.mul, 1))
+print(L_10.reduce(operator.add, 1))
 # operator.

@@ -38,19 +38,28 @@ class Test(unittest.TestCase):
     def test_mover_tudo(self):
 
         ## CASO NORMAL
-        self.assertEqual(mover_tudo(Jogo(Vaca(LIMITE_ESQUERDO, 3), Churrasqueiro(LARGURA//2, LIMITE_CIMA, 6), False)),
-                         Jogo(Vaca(LIMITE_ESQUERDO + 3, 3), Churrasqueiro(LARGURA // 2, LIMITE_CIMA + 6, 6), False))
+        self.assertEqual(mover_tudo(Jogo(Vaca(LIMITE_ESQUERDO, 3), ListaImutavel(
+                                            [Churrasqueiro(LARGURA//2, LIMITE_CIMA, 6)]
+                                                    ), False)
+                                    ),
+                         Jogo(Vaca(LIMITE_ESQUERDO + 3, 3), ListaImutavel(
+                             [Churrasqueiro(LARGURA // 2, LIMITE_CIMA + 6, 6)]
+                         ), False))
 
         ## CASO COLISAO
 
         self.assertEqual(mover_tudo(
                             Jogo(
                                 Vaca(LARGURA//2, -3),
-                                Churrasqueiro(LARGURA//2, ALTURA // 2, -3),
+                                ListaImutavel(
+                                    [Churrasqueiro(LARGURA//2, ALTURA // 2, -3)]
+                                ),
                                 False)  ),
                             Jogo(
                                 Vaca(LARGURA // 2, -3),
-                                Churrasqueiro(LARGURA // 2, ALTURA // 2, -3),
+                                ListaImutavel(
+                                    [Churrasqueiro(LARGURA // 2, ALTURA // 2, -3)]
+                                ),
                                 True) )
 
         self.assertEqual(mover_tudo(
@@ -58,30 +67,32 @@ class Test(unittest.TestCase):
                 Vaca(LARGURA // 2 - largura_imagem(IMG_VACA_INO) // 2
                                   - largura_imagem(IMG_CHURRASQUEIRO) // 2 + 2,
                      -3),
-                Churrasqueiro(
+                ListaImutavel( [Churrasqueiro(
                     LARGURA // 2,
                     ALTURA // 2,
-                    -3),
+                    -3) ]),
                 False)),
             Jogo(
                 Vaca(LARGURA // 2 - largura_imagem(IMG_VACA_INO) // 2
                      - largura_imagem(IMG_CHURRASQUEIRO) // 2 + 2,
                      -3),
-                Churrasqueiro(
+                ListaImutavel([Churrasqueiro(
                     LARGURA // 2,
                     ALTURA // 2,
-                    -3),
+                    -3)] ),
                 True))
 
-    def test_colidirem(self):
 
-        self.assertEqual( colidirem( Vaca(LIMITE_ESQUERDO, 3),
-                                     Churrasqueiro(LARGURA//2, LIMITE_CIMA, 6)),
-                          False)
-        self.assertEqual( colidirem( Vaca(LARGURA // 2 - largura_imagem(IMG_VACA_INO) // 2
-                                                       - largura_imagem(IMG_CHURRASQUEIRO) // 2 + 2,
-                                         -3),
-                                     Churrasqueiro(
+
+    def test_colidem(self):
+
+        self.assertEqual(colidem(Vaca(LIMITE_ESQUERDO, 3),
+                                 Churrasqueiro(LARGURA//2, LIMITE_CIMA, 6)),
+                         False)
+        self.assertEqual(colidem(Vaca(LARGURA // 2 - largura_imagem(IMG_VACA_INO) // 2
+                                      - largura_imagem(IMG_CHURRASQUEIRO) // 2 + 2,
+                                      -3),
+                                 Churrasqueiro(
                                          LARGURA // 2,
                                          ALTURA // 2,
                                          -3)),
@@ -106,7 +117,15 @@ class Test(unittest.TestCase):
         self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_CIMA + 1, -3)), Churrasqueiro(LARGURA//2, LIMITE_CIMA + 1, 3))
         self.assertEqual(mover_churras(Churrasqueiro(LARGURA//2, LIMITE_CIMA + 2, -3)), Churrasqueiro(LARGURA//2, LIMITE_CIMA + 2, 3))
 
+    def test_mover_churrasqueiros(self):
 
-
+        self.assertEqual(mover_churrasqueiros(ListaImutavel(
+            [Churrasqueiro(LARGURA//2, LIMITE_CIMA, -3),
+            Churrasqueiro(LARGURA // 2, LIMITE_BAIXO, -3)])),
+                        ListaImutavel(
+                            [Churrasqueiro(LARGURA//2, LIMITE_CIMA, 3),
+                            Churrasqueiro(LARGURA // 2, LIMITE_BAIXO - 3, -3)]
+                                    )
+                         )
 
 # unittest.main()  #não excluir (a menos que esteja rodando como unit test no PyCharm)
