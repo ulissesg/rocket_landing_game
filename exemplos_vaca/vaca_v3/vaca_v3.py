@@ -14,7 +14,7 @@ tela = criar_tela_base(LARGURA, ALTURA) #descomente isso
 Y_VACA = ALTURA // 2
 IMG_VACA_INO = carregar_imagem("./vaca.png")
 IMG_VACA_VORTANO = espelhar(IMG_VACA_INO, True, False)
-IMG_CHURRASQUEIRO = carregar_imagem("./churrasqueiro.png", 100, 130)
+IMG_CHURRASQUEIRO = carregar_imagem("./churrasqueiro.png", 30, 40)
 
 METADE_L_VACA = largura_imagem(IMG_VACA_INO) // 2
 METADE_H_VACA = altura_imagem(IMG_VACA_INO) // 2
@@ -136,7 +136,7 @@ def fn_para_jogo(jogo):
 colidirem: Vaca, Churrasqueiro -> Boolean
 Verifica se a vaca e o churrasqueiro colidiram
 '''
-def colidirem(vaca, churras):
+def colidem(vaca, churras):
     esquerda_vaca = vaca.x - METADE_L_VACA
     direita_vaca = vaca.x + METADE_L_VACA
     cima_vaca = Y_VACA - METADE_H_VACA
@@ -157,28 +157,37 @@ def colidirem(vaca, churras):
 
 
 '''
-colidir_algum_churras: Vaca, ListaChurras -> Boolean
+colide_algum_churras: Vaca, ListaChurras -> Boolean
 !!! TODO
 '''
 def colide_algum_churras(vaca, churrasqueiros):
-    if churrasqueiros.vazia:
-        return False
-    else:
-        return colidirem(vaca, churrasqueiros.primeiro) \
-               or colide_algum_churras(vaca, churrasqueiros.resto)
-
+    # if churrasqueiros.vazia:
+    #     return False
+    # else:
+    #     resultado = colidem(vaca, churrasqueiros.primeiro) or \
+    #                 colide_algum_churras(vaca, churrasqueiros.resto)
+    #     return resultado
+    return churrasqueiros.ormap(lambda churras: colidem(vaca, churras))
+    # return churrasqueiros.reduce(lambda churras1, churras2:
+    #                              colidem(vaca, churras1) or colidem(vaca, churras2),
+    #                              False)
 
 '''
 mover_churrasqueiros: ListaChurras -> ListaChurras
 !!! TODO
 '''
 def mover_churrasqueiros(churrasqueiros):
-    if churrasqueiros.vazia:
-        return churrasqueiros
-    else:
-        return juntar(mover_churras(churrasqueiros.primeiro),
-                      mover_churrasqueiros(churrasqueiros.resto))
-
+    # if churrasqueiros.vazia:
+    #     return churrasqueiros
+    # else:
+    #     resultado = juntar(
+    #         mover_churras(churrasqueiros.primeiro),
+    #         mover_churrasqueiros(churrasqueiros.resto) #RECURSÃO EM CAUDA
+    #     )
+    #     return resultado
+    # return churrasqueiros.map(mover_churras)
+    # LIST COMPREHENSION
+    return criar_lista([mover_churras(churras) for churras in churrasqueiros ])
 
 '''
 mover_tudo: Jogo -> Jogo
@@ -190,7 +199,7 @@ def mover_tudo(jogo):
         novos_churras = mover_churrasqueiros(jogo.churrasqueiros)  ##funcao helper
         return Jogo(nova_vaca, novos_churras, False)
     else:
-        return Jogo(jogo.vaca, jogo.churras, True)
+        return Jogo(jogo.vaca, jogo.churrasqueiros, True)
 
 
 '''
@@ -234,13 +243,24 @@ def desenha_game_over():
 
 
 '''
+desenha_churrasqueiros: ListChurras -> Imagem
+Desenha todos os churras
+'''
+def desenha_churrasqueiros(churrasqueiros):
+    if churrasqueiros.vazia:
+        return   #caso base
+    else:
+        desenha_churras(churrasqueiros.primeiro)
+        desenha_churrasqueiros(churrasqueiros.resto)
+
+'''
 desenha_jogo: Jogo -> Imagem
 Desenha todos os elementos do jogo de acordo com o estado atual
 '''
 def desenha_jogo(jogo):
     if (not jogo.game_over):
         desenha_vaca(jogo.vaca)
-        desenha_churras(jogo.churras)
+        desenha_churrasqueiros(jogo.churrasqueiros)
     else:
         desenha_game_over()
 
@@ -262,7 +282,7 @@ Trata tecla para o jogo todo.
 def trata_tecla_jogo(jogo, tecla):
     if (not jogo.game_over):
         nova_vaca = trata_tecla_vaca(jogo.vaca, tecla)
-        return Jogo(nova_vaca, jogo.churras, jogo.game_over)
+        return Jogo(nova_vaca, jogo.churrasqueiros, jogo.game_over)
     elif tecla == pg.K_RETURN:
         return JOGO_INICIAL
     else:
