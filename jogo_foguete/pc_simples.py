@@ -1,7 +1,7 @@
 from htdp_pt_br.universe import *
 
 Pc_simples = definir_estrutura("Pc_simples", "x, y, dx, dy")
-''' Foguete pode ser formado assim: Foguete(int, int, int, int)
+''' Foguete pode ser formado assim: Foguete(int[LIMITE_ESQUERDA, LIMITE_DIREITA], int[LIMITE_CIMA, LIMITE_BAIXO], int, int)
 interp. representa um plano cartesiano com as posicoes x, y e as velocidades dos mesmos dx, dy.
 '''
 #EXEMPLOS:

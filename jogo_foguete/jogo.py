@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from htdp_pt_br.universe import *
+from asteroides import *
+from aviao import *
+from foguete import *
+from plataforma import *
 
 ''' Jogo de pousar foguete '''
 
@@ -15,6 +19,9 @@ FREQUENCIA= 30
 
 X_BOOST=500
 Y_BOOST=50
+COR_BOOST= "black"
+TAMANHO_BOOST= 40
+FONTE_BOOST= "monospace"
 
 X_PLATAFORMA1=100
 Y_PLATAFORMA1=500
@@ -38,8 +45,32 @@ ALTURA_PLATAFORMA= altura_imagem(IMG_PLATAFORMA)
 '''==================='''
 '''# Definições de dados: '''
 
-''' EstadoMundo é ... (dê um nome melhor para EstadoMundo) '''
+Jogo = definir_estrutura("Jogo", "foguete, ast_1, ast_2, aviao_1, aviao_2, plat_1, plat_2, game_over")
+''' Jogo pode ser formado como: Jogo(Foguete, Asteroide, Asteroide, Aviao, Aviao, Plataforma, PLataforma, Boolean)
+interp. representa o jogo sendo ele conposto por um foguete, dois asteroides, dois avioes, duas plataformas, e um game over.
+'''
+#EXEMPLOS:
+JOGO_INICIAL= Jogo(FOGUETE_INICIAL, ASTEROIDE_INICIAL, ASTEROIDE_INICIAL2, AVIAO_INICIAL, AVIAO_INICIAL2,
+                   PLATAFORMA1, PLATAFORMA2, False);
 
+JOGO_MEIO= Jogo(FOGUETE_MEIO, ASTEROIDE_MEIO, ASTEROIDE_MEIO, AVIAO_MEIO, AVIAO_MEIO,
+                PLATAFORMA1, PLATAFORMA2, False);
+
+JOGO_GAME_OVER= Jogo(FOGUETE_MEIO, ASTEROIDE_MEIO, ASTEROIDE_MEIO, AVIAO_MEIO, AVIAO_MEIO,
+                PLATAFORMA1, PLATAFORMA2, True);
+
+
+##TEMPLATE
+'''
+def fn_para_jogo(jogo):
+    if jogo.game_over == False:
+        ...jogo.foguete
+           jogo.ast_1
+           ...
+    ...jogo.foguete
+       jogo.ast_1
+       ...
+'''
 
 
 '''===================='''
