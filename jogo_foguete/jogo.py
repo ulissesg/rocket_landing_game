@@ -30,15 +30,15 @@ X_PLATAFORMA2=300
 Y_PLATAFORMA2=500
 
 
-IMG_METEORO =
+IMG_METEORO = ...#ainda nao definido
 LARGURA_METEORO= largura_imagem(IMG_METEORO)
 ALTURA_METEORO= altura_imagem(IMG_METEORO)
 
-IMG_AVIAO=
+IMG_AVIAO= ...#ainda nao definido
 LARGURA_AVIAO= largura_imagem(IMG_AVIAO)
 ALTURA_AVIAO= altura_imagem(IMG_AVIAO)
 
-IMG_PLATAFORMA=
+IMG_PLATAFORMA= ...#ainda nao definido
 LARGURA_PLATAFORMA= largura_imagem(IMG_PLATAFORMA)
 ALTURA_PLATAFORMA= altura_imagem(IMG_PLATAFORMA)
 
@@ -131,11 +131,11 @@ def trata_mouse(estado, x, y, ev):
 ''' EstadoMundo -> EstadoMundo '''
 ''' inicie o mundo com ...'''
 def main(m):
-    big_bang(m, tela=tela, frequencia=XX, \
-             quando_tick=tock, \
-             desenhar=desenha, \
-             quando_tecla=..., \
-             quando_mouse=..., \
-             parar_quando=...)
+    big_bang(m, tela=tela, frequencia= FREQUENCIA,
+             # quando_tick=tock,
+             # desenhar=desenha,
+             quando_tecla=...,
+             quando_solta_tecla=...
+             )
 
 
