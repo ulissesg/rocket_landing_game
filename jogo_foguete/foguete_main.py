@@ -11,6 +11,7 @@ def main(f):
              quando_tick=move_foguete,
              desenhar=desenha,
              quando_tecla=trata_tecla,
+             quando_solta_tecla= trata_solta_tecla,
              modo_debug= True
              )
 
