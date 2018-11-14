@@ -36,6 +36,29 @@ def fn_para_aviao(av):
         av.dy
 '''
 
+'''
+ListaAviao é um desses:
+    - VAZIA
+    - juntar(Aviao, ListaAviao)
+'''
+#Exemplos:
+L_AVIAO_1 = criar_lista(AVIAO_INICIAL)
+L_AVIAO_INICIAL = criar_lista(
+    Personagem(600, 50, -1, -1),
+    Personagem(300, 200, 1, 1),
+    Personagem(300, 400, 1, 1)
+)
+
+'''
+#template
+def fn_para_lista(lista):
+    if lista.vazia:
+        return ...
+    else:
+        ... lista.primeiro
+            fn_para_lista(lista.resto)
+'''
+
 '''===================='''
 ''' Funções: '''
 
