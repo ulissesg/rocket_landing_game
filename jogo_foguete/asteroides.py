@@ -33,6 +33,29 @@ def fn_para_asteroide(ast):
         ast.dy
 '''
 
+'''
+ListaAsteroide é um desses:
+    - VAZIA
+    - juntar(Asteroide, ListaAsteroide)
+'''
+#Exemplos:
+L_ASTEROIDE_1 = criar_lista(ASTEROIDE_INICIAL)
+L_ASTEROIDE_INICIAL = criar_lista(
+    Personagem(600, 50, -1, -1),
+    Personagem(50, 0, 1, 1),
+    Personagem(300, 400, 1, 1)
+)
+
+'''
+#template
+def fn_para_lista(lista):
+    if lista.vazia:
+        return ...
+    else:
+        ... lista.primeiro
+            fn_para_lista(lista.resto)
+'''
+
 '''===================='''
 ''' Funções: '''
 
