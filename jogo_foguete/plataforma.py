@@ -31,6 +31,28 @@ def fn_para_plafaorma(pla):
         pla.dy
 '''
 
+'''
+ListaPlataforma é um desses:
+    - VAZIA
+    - juntar(Plataforma, ListaPlataforma)
+'''
+#Exemplos:
+L_PLATAFROMA_1 = criar_lista(PLATAFORMA1)
+L_PLATAFORMA_INICIAL = criar_lista(
+    Personagem(600,50, 0,0),
+    Personagem(600,350, 0,0)
+)
+
+'''
+#template
+def fn_para_lista(lista):
+    if lista.vazia:
+        return ...
+    else:
+        ... lista.primeiro
+            fn_para_lista(lista.resto)
+'''
+
 '''===================='''
 ''' Funções: '''
 
