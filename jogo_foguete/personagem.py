@@ -4,7 +4,7 @@ from htdp_pt_br.universe import *
 
 from htdp_pt_br.universe import *
 
-''' Programa do plano cartesiano '''
+''' Programa do personagem '''
 
 '''==================='''
 '''# Preparacao da Tela e Constantes: '''
@@ -16,24 +16,24 @@ from htdp_pt_br.universe import *
 '''==================='''
 '''# Definições de dados: '''
 
-Pc_simples = definir_estrutura("Pc_simples", "x, y, dx, dy")
-''' Foguete pode ser formado assim: Foguete(int[LIMITE_ESQUERDA, LIMITE_DIREITA], int[LIMITE_CIMA, LIMITE_BAIXO], int, int)
-interp. representa um plano cartesiano com as posicoes x, y e as velocidades dos mesmos dx, dy.
+Personagem = definir_estrutura("Personagem", "x, y, dx, dy")
+''' Personagem pode ser formado assim: Personagem(int[LIMITE_ESQUERDA, LIMITE_DIREITA], int[LIMITE_CIMA, LIMITE_BAIXO], int, int)
+interp. representa um personagem com as posicoes x, y e as velocidades dos mesmos dx, dy.
 '''
 #EXEMPLOS:
-PC_INICIAL = Pc_simples(0, 0, 1, 1)
-PC_MEIO = Pc_simples(300, 200, 1, 1)
-PC_FIM = Pc_simples(600, 400, 1, 1)
-PC_DIREITO = Pc_simples(600, 200, 1, 1)
-PC_ESQUERDO = Pc_simples(0, 200, 1, 1)
+PS_INICIAL = Personagem(0, 0, 1, 1)
+PS_MEIO = Personagem(300, 200, 1, 1)
+PS_FIM = Personagem(600, 400, 1, 1)
+PS_DIREITO = Personagem(600, 200, 1, 1)
+PS_ESQUERDO = Personagem(0, 200, 1, 1)
 
 #TEMPLATE
 '''
-def fn_para_pc(pc):
-    ... pc.x
-        pc.y
-        pc.dx
-        pc.dy
+def fn_para_ps(ps):
+    ... ps.x
+        ps.y
+        ps.dx
+        ps.dy
        
 '''
 

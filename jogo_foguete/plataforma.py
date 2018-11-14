@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pc_simples import *
+from personagem import *
 
 ''' Programa da plataforma '''
 
@@ -15,12 +15,12 @@ from pc_simples import *
 '''==================='''
 '''# Definições de dados: '''
 
-''' Plataforma eh um Pc_simples
+''' Plataforma eh um Personagem
 interp. representa uma plataforma com suas posicoes e velocidades.
 '''
 #EXEMPLOS:
-PLATAFORMA1= Pc_simples(600,50, 0,0)
-PLATAFORMA2= Pc_simples(600,350, 0,0)
+PLATAFORMA1= Personagem(600,50, 0,0)
+PLATAFORMA2= Personagem(600,350, 0,0)
 
 #TEMPLATE
 '''

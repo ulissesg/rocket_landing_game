@@ -1,29 +1,31 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pc_simples import *
+from personagem import *
 
 ''' Programa do aviao '''
 
 '''==================='''
 '''# Preparacao da Tela e Constantes: '''
 
-#(LARGURA, ALTURA) = (600, 400)
-#tela = criar_tela_base(LARGURA, ALTURA) #descomente isso
+(LARGURA, ALTURA) = (600, 400)
+tela = criar_tela_base(LARGURA, ALTURA)
+
+FREQUENCIA_AVIAO = 30
 
 
 '''==================='''
 '''# Definições de dados: '''
 
 
-''' Aviao eh um Pc_simples
+''' Aviao eh um Personagem
 interp. representa um aviao com suas posicoes e velocidades.
 '''
 #EXEMPLOS:
-AVIAO_INICIAL = Pc_simples(0, 200, 1, -1)
-AVIAO_INICIAL2 = Pc_simples(600, 50, -1, -1)
-AVIAO_MEIO = Pc_simples(300, 200, 1, 1)
-AVIAO_FINAL = Pc_simples(300, 400, 1, 1)
+AVIAO_INICIAL = Personagem(0, 200, 1, -1)
+AVIAO_INICIAL2 = Personagem(600, 50, -1, -1)
+AVIAO_MEIO = Personagem(300, 200, 1, 1)
+AVIAO_FINAL = Personagem(300, 400, 1, 1)
 
 #TEMPLATE
 '''
