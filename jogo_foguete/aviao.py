@@ -13,6 +13,16 @@ tela = criar_tela_base(LARGURA, ALTURA)
 
 FREQUENCIA_AVIAO = 30
 
+IMG_AVIAO = carregar_imagem("aviao.png")
+IMG_AVIAO = definir_dimensoes(IMG_AVIAO, 100, 80)
+IMG_AVIAO_DIREITA = espelhar(IMG_AVIAO)
+IMG_AVIAO_ESQUERDA = IMG_AVIAO
+
+LIMITE_CIMA = altura_imagem(IMG_AVIAO) // 2
+LIMITE_BAIXO = ALTURA - altura_imagem(IMG_AVIAO) // 2
+LIMITE_DIREITA =LARGURA - largura_imagem(IMG_AVIAO) // 2
+LIMITE_ESQUERDA =largura_imagem(IMG_AVIAO) // 2
+
 
 '''==================='''
 '''# Definições de dados: '''
@@ -64,13 +74,21 @@ def fn_para_lista(lista):
 
 
 '''
-tock: EstadoMundo -> EstadoMundo
-Produz o próximo ...
-# !!! TODO
-def tock(estado):
-    pass
+mover_avioes: ListaAviao -> ListaAviao
+Produz o próximo estado dos avioes
 '''
 
+def mover_avioes(avioes):
+    pass
+
+
+'''
+mover_aviao: Aviao -> Aviao
+interp. produz o proximo estado de um aviao
+'''
+
+def mover_aviao(a):
+    pass
 
 '''
 desenha: EstadoMundo -> Imagem
@@ -79,50 +97,4 @@ Desenha...
 def desenha(estado):
     pass
 '''
-
-
-'''
-trata_tecla: EstadoMundo, Tecla -> EstadoMundo
-Quando teclar ... produz ... <apagar caso não precise usar>
-# !!! TODO
-Template:
-
-def trata_tecla(estado, tecla):
-    if tecla == pg.K_SPACE:
-        ... estado
-    else:
-        ... estado
-'''
-
-
-'''
-trata_mouse: EstadoMundo, Int, Int, EventoMouse -> EstadoMundo:
-Quando fazer ... nas posições x y no mouse produz ...   <apagar caso não precise usar>
-# !!! TODO
-Template:
-
-def trata_mouse(estado, x, y, ev):
-
-    if ev == pg.MOUSEMOTION:
-        ... estado
-    else:
-        ... estado
-
-'''
-
-''' ================= '''
-''' Main (Big Bang):'''
-
-
-''' EstadoMundo -> EstadoMundo '''
-''' inicie o mundo com ...'''
-# def main(m):
-#     big_bang(m, tela=tela, frequencia=XX, \
-#              quando_tick=tock, \
-#              desenhar=desenha, \
-#              quando_tecla=..., \
-#              quando_mouse=..., \
-#              parar_quando=...)
-#
-
 

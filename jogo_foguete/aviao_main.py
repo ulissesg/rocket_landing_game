@@ -9,7 +9,7 @@ from aviao import *
 
 def main(a):
     big_bang(a, tela=tela, frequencia= FREQUENCIA_AVIAO,
-             quando_tick=...,
+             quando_tick=mover_avioes,
              desenhar=...,
              modo_debug= True
              )
