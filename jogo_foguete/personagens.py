@@ -8,7 +8,7 @@ from htdp_pt_br.universe import *
 '''==================='''
 '''# Preparacao da Tela e Constantes: '''
 
-(LARGURA, ALTURA) = (1200, 800)
+(LARGURA, ALTURA) = (1200, 700)
 tela = criar_tela_base(LARGURA, ALTURA)
 
 FREQUENCIA_PERSONAGENS = 30
@@ -34,7 +34,7 @@ IMG_PLATAFORMA = definir_dimensoes(IMG_PLATAFORMA, 150,60)
 PLATAFORMA  = 3
 
 LIMITE_CIMA = altura_imagem(IMG_AVIAO) // 2 + 1
-LIMITE_BAIXO = ALTURA - altura_imagem(IMG_AVIAO) * 1.2
+LIMITE_BAIXO = ALTURA - altura_imagem(IMG_PLATAFORMA) // 2 -1
 LIMITE_DIREITA =LARGURA - largura_imagem(IMG_AVIAO) // 2 - 1
 LIMITE_ESQUERDA =largura_imagem(IMG_AVIAO) // 2 + 1
 

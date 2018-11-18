@@ -8,7 +8,7 @@ from personagens import *
 '''==================='''
 '''# Preparacao da Tela e Constantes: '''
 
-(LARGURA, ALTURA) = (1200, 800)
+(LARGURA, ALTURA) = (1200, 700)
 tela = criar_tela_base(LARGURA, ALTURA)
 
 
@@ -16,7 +16,9 @@ FREQUENCIA_FOGUETE = 30
 IMG_FOGUETE = carregar_imagem("imagens/foguete.png")
 IMG_FOGUETE = definir_dimensoes(IMG_FOGUETE, 100, 80)
 
-LIMITE_BAIXO = ALTURA - altura_imagem(IMG_FOGUETE) * 1.25
+FOGUETE = 4
+
+LIMITE_BAIXO = ALTURA - altura_imagem(IMG_FOGUETE) // 4
 LIMITE_DIREITA = LARGURA - largura_imagem(IMG_FOGUETE) // 4
 LIMITE_ESQUERDA = 0 + largura_imagem(IMG_FOGUETE) // 4
 LIMITE_CIMA = 0 + altura_imagem(IMG_FOGUETE)
@@ -41,9 +43,9 @@ TECLA_CIMA = pg.K_UP
 interp. representa um foguete com suas posicoes e velocidades.
 '''
 #EXEMPLOS:
-FOGUETE_INICIAL = Personagem(LIMITE_DIREITA//2, LIMITE_CIMA, DX, DY)
-FOGUETE_MEIO = Personagem(LIMITE_DIREITA //2 , LIMITE_BAIXO //2, 2, -5)
-FOGUETE_FINAL = Personagem(LIMITE_DIREITA//2, LIMITE_BAIXO, 3, -4)
+FOGUETE_INICIAL = Personagem(LIMITE_DIREITA//2, LIMITE_CIMA, DX, DY, FOGUETE)
+FOGUETE_MEIO = Personagem(LIMITE_DIREITA //2 , LIMITE_BAIXO //2, 2, -5, FOGUETE)
+FOGUETE_FINAL = Personagem(LIMITE_DIREITA//2, LIMITE_BAIXO, 3, -4, FOGUETE)
 
 #TEMPLATE
 '''
@@ -68,17 +70,17 @@ def move_foguete(f):
         if f.x <= LIMITE_ESQUERDA:
 
             if f.dy < 0:
-                return Personagem(f.x + 1, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE)
-            return Personagem(f.x + 1, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA)
+                return Personagem(f.x + 1, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
+            return Personagem(f.x + 1, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
 
         if f.x >= LIMITE_DIREITA:
             if f.dy < 0:
-                return Personagem(f.x - 1, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE)
-            return Personagem(f.x - 1, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA)
+                return Personagem(f.x - 1, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
+            return Personagem(f.x - 1, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
 
         if f.dy < 0:
-            return Personagem(f.x + f.dx, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE)
-        return Personagem(f.x + f.dx, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA)
+            return Personagem(f.x + f.dx, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
+        return Personagem(f.x + f.dx, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
 
     return f
 
@@ -100,13 +102,13 @@ def trata_tecla(f, tecla):
     if f.y < LIMITE_BAIXO:
 
         if tecla == TECLA_CIMA:
-            return Personagem(f.x, f.y, f.dx, -DDY)
+            return Personagem(f.x, f.y, f.dx, -DDY, FOGUETE)
 
         elif tecla == TECLA_DIREITA:
-                return Personagem(f.x , f.y, DDX, f.dy)
+                return Personagem(f.x , f.y, DDX, f.dy, FOGUETE)
 
         elif tecla == TECLA_ESQUERDA:
-                return Personagem(f.x , f.y, -DDX, f.dy)
+                return Personagem(f.x , f.y, -DDX, f.dy, FOGUETE)
 
         return f
 
@@ -119,9 +121,9 @@ interp. quando soltar a tecla devolve o novo estado do Foguete
 
 def trata_solta_tecla(f, t):
     if t == TECLA_CIMA:
-        return Personagem(f.x, f.y, f.dx, DY)
+        return Personagem(f.x, f.y, f.dx, DY, FOGUETE)
 
     if t == TECLA_ESQUERDA or t == TECLA_DIREITA:
-        return Personagem(f.x , f.y, 0, f.dy)
+        return Personagem(f.x , f.y, 0, f.dy, FOGUETE)
 
     return f
