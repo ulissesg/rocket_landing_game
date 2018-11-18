@@ -3,7 +3,7 @@
 
 from htdp_pt_br.universe import *
 from asteroides import *
-from aviao import *
+from personagens import *
 from foguete import *
 from plataforma import *
 

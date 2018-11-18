@@ -1,4 +1,4 @@
-from personagem import *
+from personagens import *
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -13,7 +13,7 @@ tela = criar_tela_base(LARGURA, ALTURA)
 
 
 FREQUENCIA_FOGUETE = 30
-IMG_FOGUETE = carregar_imagem("foguete.png")
+IMG_FOGUETE = carregar_imagem("imagens/foguete.png")
 IMG_FOGUETE = definir_dimensoes(IMG_FOGUETE, 100, 80)
 
 LIMITE_BAIXO = ALTURA - altura_imagem(IMG_FOGUETE) * 1.25
