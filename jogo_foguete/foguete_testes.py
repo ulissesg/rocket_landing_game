@@ -46,13 +46,13 @@ class Test(unittest.TestCase):
 
     def test_trata_solta_tecla(self):
 
-        self.assertEquals(trata_solta_tecla(FOGUETE_MEIO, TECLA_CIMA),
+        self.assertEqual(trata_solta_tecla(FOGUETE_MEIO, TECLA_CIMA),
                           Personagem(FOGUETE_MEIO.x, FOGUETE_MEIO.y, FOGUETE_MEIO.dx, DY))
 
-        self.assertEquals(trata_solta_tecla(FOGUETE_MEIO, TECLA_ESQUERDA),
+        self.assertEqual(trata_solta_tecla(FOGUETE_MEIO, TECLA_ESQUERDA),
                           Personagem(FOGUETE_MEIO.x, FOGUETE_MEIO.y, 0, FOGUETE_MEIO.dy))
 
-        self.assertEquals(trata_solta_tecla(FOGUETE_MEIO, TECLA_DIREITA),
+        self.assertEqual(trata_solta_tecla(FOGUETE_MEIO, TECLA_DIREITA),
                           Personagem(FOGUETE_MEIO.x, FOGUETE_MEIO.y, 0, FOGUETE_MEIO.dy))
 
-        self.assertEquals(trata_solta_tecla(FOGUETE_MEIO, pg.K_BACKSPACE), FOGUETE_MEIO)
+        self.assertEqual(trata_solta_tecla(FOGUETE_MEIO, pg.K_BACKSPACE), FOGUETE_MEIO)
