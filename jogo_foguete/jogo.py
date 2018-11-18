@@ -3,7 +3,7 @@
 
 from htdp_pt_br.universe import *
 from asteroides import *
-from aviao import *
+from personagens import *
 from foguete import *
 from plataforma import *
 
@@ -45,19 +45,16 @@ ALTURA_PLATAFORMA= altura_imagem(IMG_PLATAFORMA)
 '''==================='''
 '''# Definições de dados: '''
 
-Jogo = definir_estrutura("Jogo", "foguete, ast_1, ast_2, aviao_1, aviao_2, plat_1, plat_2, game_over")
-''' Jogo pode ser formado como: Jogo(Foguete, Asteroide, Asteroide, Aviao, Aviao, Plataforma, PLataforma, Boolean)
+Jogo = definir_estrutura("Jogo", "foguete, asteroide, aviao, plataforma, game_over")
+''' Jogo pode ser formado como: Jogo(Foguete, ListaAsteroide, ListaAviao, ListaPlataforma, Boolean)
 interp. representa o jogo sendo ele conposto por um foguete, dois asteroides, dois avioes, duas plataformas, e um game over.
 '''
 #EXEMPLOS:
-JOGO_INICIAL= Jogo(FOGUETE_INICIAL, ASTEROIDE_INICIAL, ASTEROIDE_INICIAL2, AVIAO_INICIAL, AVIAO_INICIAL2,
-                   PLATAFORMA1, PLATAFORMA2, False);
+JOGO_INICIAL= Jogo(FOGUETE_INICIAL, criar_lista(ASTEROIDE_INICIAL), criar_lista(AVIAO_INICIAL), criar_lista(PLATAFORMA1), False);
 
-JOGO_MEIO= Jogo(FOGUETE_MEIO, ASTEROIDE_MEIO, ASTEROIDE_MEIO, AVIAO_MEIO, AVIAO_MEIO,
-                PLATAFORMA1, PLATAFORMA2, False);
+JOGO_MEIO= Jogo(FOGUETE_INICIAL, criar_lista(ASTEROIDE_MEIO), criar_lista(AVIAO_MEIO), criar_lista(PLATAFORMA2), False);
 
-JOGO_GAME_OVER= Jogo(FOGUETE_MEIO, ASTEROIDE_MEIO, ASTEROIDE_MEIO, AVIAO_MEIO, AVIAO_MEIO,
-                PLATAFORMA1, PLATAFORMA2, True);
+JOGO_GAME_OVER = Jogo(FOGUETE_INICIAL, criar_lista(ASTEROIDE_FINAL), criar_lista(AVIAO_FINAL), criar_lista(PLATAFORMA2), True);
 
 
 ##TEMPLATE
@@ -65,10 +62,10 @@ JOGO_GAME_OVER= Jogo(FOGUETE_MEIO, ASTEROIDE_MEIO, ASTEROIDE_MEIO, AVIAO_MEIO, A
 def fn_para_jogo(jogo):
     if jogo.game_over == False:
         ...jogo.foguete
-           jogo.ast_1
+           jogo.asteroide
            ...
     ...jogo.foguete
-       jogo.ast_1
+       jogo.asteroide
        ...
 '''
 
