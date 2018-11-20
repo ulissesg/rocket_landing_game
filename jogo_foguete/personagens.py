@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from htdp_pt_br.universe import *
+import random
 
 ''' Programa do personagens '''
 
@@ -60,11 +61,27 @@ Personagem = definir_estrutura("Personagem", "x, y, dx, dy, tipo")
 interp. representa um personagem com as posicoes x, y e as velocidades dos mesmos dx, dy.
 '''
 #EXEMPLOS:
-PS_INICIAL = Personagem(0, 0, 1, 1, AVIAO)
+PS_INICIAL = Personagem(60, 60, 1, 1, AVIAO)
 PS_MEIO = Personagem(300, 200, 1, 1, ASTEROIDE)
 PS_FIM = Personagem(600, 400, 1, 1, PLATAFORMA)
 PS_DIREITO = Personagem(600, 200, 1, 1, ASTEROIDE)
 PS_ESQUERDO = Personagem(0, 200, 1, 1, AVIAO)
+
+PERSONAGEM_1 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_ASTEROIDE),
+                          -random.randrange(5,15), random.randrange(0, 1), ASTEROIDE)
+
+PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_ASTEROIDE),
+                          random.randrange(5,15), random.randrange(0, 1), ASTEROIDE)
+
+PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                          random.randrange(5,10), random.randrange(1, 2), AVIAO)
+
+PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                          random.randrange(5,10), random.randrange(1, 2), AVIAO)
+
+PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
+
+PERSONAGEM_6 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
 
 #TEMPLATE
 '''
@@ -98,23 +115,13 @@ ListaPersonagem é um desses:
 #Exemplos:
 L_PERSONAGENS_1 = criar_lista(PS_INICIAL)
 L_PERSONAGEM_INICIAL = criar_lista(
-    Personagem(600, 50, -1, -1, AVIAO),
+    Personagem(600, 80, -1, -1, AVIAO),
     Personagem(300, 200, 1, 1, PLATAFORMA),
-    Personagem(300, 400, 1, 1, ASTEROIDE)
+    Personagem(300, 70, 1, 1, ASTEROIDE)
 )
+
 L_PERSONAGEM_MEIO = criar_lista( #randomizar
-    Personagem(LIMITE_DIREITA - largura_imagem(IMG_AVIAO), LIMITE_CIMA + altura_imagem(IMG_AVIAO) // 2,
-               -DX_ASTEROIDE, DY_ASTEROIDE, ASTEROIDE),
-
-    Personagem(LIMITE_ESQUERDA + largura_imagem(IMG_AVIAO), ALTURA // 6, DX_ASTEROIDE, DY_ASTEROIDE, ASTEROIDE),
-
-    Personagem(LIMITE_ESQUERDA + largura_imagem(IMG_AVIAO), ALTURA // 2, DX_AVIAO, DY_AVIAO, AVIAO),
-
-    Personagem(LIMITE_DIREITA - largura_imagem(IMG_AVIAO), ALTURA // 4 * 1.5, -DX_AVIAO, DY_AVIAO, AVIAO),
-
-    Personagem(LARGURA // 4, LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA),
-
-    Personagem(LARGURA // 4 * 3, LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
+   PERSONAGEM_1, PERSONAGEM_2, PERSONAGEM_3, PERSONAGEM_4, PERSONAGEM_5, PERSONAGEM_6
 )
 
 '''
@@ -147,19 +154,19 @@ interp. produz o proximo estado de um personagem
 
 def mover_personagem(ps):
 
-    if ps.tipo == 1:
+    if ps.tipo == ASTEROIDE:
         if ps.x >= LIMITE_DIREITA or ps.x <= LIMITE_ESQUERDA:
-            return Personagem(ps.x - ps.dx, ps.y + ps.dy, -ps.dx, ps.dy, ps.tipo)
+            return Personagem(ps.x - ps.dx, ps.y, -ps.dx, ps.dy, ps.tipo)
 
         if ps.y >= LIMITE_ASTEROIDE or ps.y <= LIMITE_CIMA:
-            return Personagem(ps.x + ps.dx, ps.y - ps.dy, ps.dx, -ps.dy, ps.tipo)
+            return Personagem(ps.x, ps.y - ps.dy, ps.dx, -ps.dy, ps.tipo)
 
-    if ps.tipo == 2:
+    if ps.tipo == AVIAO:
         if ps.x >= LIMITE_DIREITA or ps.x <= LIMITE_ESQUERDA:
-            return Personagem(ps.x - ps.dx, ps.y + ps.dy, -ps.dx, ps.dy, ps.tipo)
+            return Personagem(ps.x - ps.dx, ps.y, -ps.dx, ps.dy, ps.tipo)
 
         if ps.y >= LIMITE_AVIAO or ps.y <= LIMITE_CIMA:
-            return Personagem(ps.x + ps.dx, ps.y - ps.dy, ps.dx, -ps.dy, ps.tipo)
+            return Personagem(ps.x, ps.y - ps.dy, ps.dx, -ps.dy, ps.tipo)
 
     return Personagem(ps.x + ps.dx, ps.y + ps.dy, ps.dx, ps.dy, ps.tipo)
 
