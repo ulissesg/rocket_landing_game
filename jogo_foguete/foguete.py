@@ -14,7 +14,7 @@ tela = criar_tela_base(LARGURA, ALTURA)
 
 FREQUENCIA_FOGUETE = 30
 IMG_FOGUETE = carregar_imagem("imagens/foguete.png")
-IMG_FOGUETE = definir_dimensoes(IMG_FOGUETE, 100, 80)
+IMG_FOGUETE = definir_dimensoes(IMG_FOGUETE, 60, 100)
 
 FOGUETE = 4
 
@@ -43,7 +43,7 @@ TECLA_CIMA = pg.K_UP
 interp. representa um foguete com suas posicoes e velocidades.
 '''
 #EXEMPLOS:
-FOGUETE_INICIAL = Personagem(LIMITE_DIREITA//2, LIMITE_CIMA, DX, DY, FOGUETE)
+FOGUETE_INICIAL = Personagem(LIMITE_DIREITA//2, 0, DX, DY, FOGUETE)
 FOGUETE_MEIO = Personagem(LIMITE_DIREITA //2 , LIMITE_BAIXO //2, 2, -5, FOGUETE)
 FOGUETE_FINAL = Personagem(LIMITE_DIREITA//2, LIMITE_BAIXO, 3, -4, FOGUETE)
 

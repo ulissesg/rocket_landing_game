@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from htdp_pt_br.universe import *
-from asteroides import *
 from personagens import *
 from foguete import *
-from plataforma import *
 
 ''' Jogo de pousar foguete '''
 
 '''==================='''
 '''# Preparacao da Tela e Constantes: '''
 
-(LARGURA, ALTURA) = (600, 400)
+(LARGURA, ALTURA) = (1200, 700)
 tela = criar_tela_base(LARGURA, ALTURA)
+
+IMG_FUNDO = carregar_imagem("imagens/fundo.png")
+IMG_FUNDO = definir_dimensoes(IMG_FUNDO, LARGURA, ALTURA)
 
 FREQUENCIA= 30
 
@@ -23,38 +23,28 @@ COR_BOOST= "black"
 TAMANHO_BOOST= 40
 FONTE_BOOST= "monospace"
 
-X_PLATAFORMA1=100
-Y_PLATAFORMA1=500
+METADE_L_FOGUETE = largura_imagem(IMG_FOGUETE) // 2
+METADE_H_FOGUETE = altura_imagem(IMG_FOGUETE) // 2
+METADE_L_PS = largura_imagem(IMG_AVIAO) // 2
+METADE_H_PS = altura_imagem(IMG_AVIAO) // 2
 
-X_PLATAFORMA2=300
-Y_PLATAFORMA2=500
+LIMITE_CIMA_PLATAFORMA  = LIMITE_BAIXO - altura_imagem(IMG_PLATAFORMA)
 
 
-IMG_METEORO = ...#ainda nao definido
-LARGURA_METEORO= largura_imagem(IMG_METEORO)
-ALTURA_METEORO= altura_imagem(IMG_METEORO)
-
-IMG_AVIAO= ...#ainda nao definido
-LARGURA_AVIAO= largura_imagem(IMG_AVIAO)
-ALTURA_AVIAO= altura_imagem(IMG_AVIAO)
-
-IMG_PLATAFORMA= ...#ainda nao definido
-LARGURA_PLATAFORMA= largura_imagem(IMG_PLATAFORMA)
-ALTURA_PLATAFORMA= altura_imagem(IMG_PLATAFORMA)
 
 '''==================='''
 '''# Definições de dados: '''
 
-Jogo = definir_estrutura("Jogo", "foguete, asteroide, aviao, plataforma, game_over")
-''' Jogo pode ser formado como: Jogo(Foguete, ListaAsteroide, ListaAviao, ListaPlataforma, Boolean)
-interp. representa o jogo sendo ele conposto por um foguete, dois asteroides, dois avioes, duas plataformas, e um game over.
+Jogo = definir_estrutura("Jogo", "foguete, personagens, game_over, win")
+''' Jogo pode ser formado como: Jogo(Foguete, ListaPersonagem, Boolean, Boolean)
+interp. representa o jogo sendo ele conposto por um foguete, os personagens(obstaculos), e um game over, e um check se ganhou.
 '''
 #EXEMPLOS:
-JOGO_INICIAL= Jogo(FOGUETE_INICIAL, criar_lista(ASTEROIDE_INICIAL), criar_lista(AVIAO_INICIAL), criar_lista(PLATAFORMA1), False);
+JOGO_INICIAL= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_MEIO, False, False);
 
-JOGO_MEIO= Jogo(FOGUETE_INICIAL, criar_lista(ASTEROIDE_MEIO), criar_lista(AVIAO_MEIO), criar_lista(PLATAFORMA2), False);
+JOGO_MEIO= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, False, False);
 
-JOGO_GAME_OVER = Jogo(FOGUETE_INICIAL, criar_lista(ASTEROIDE_FINAL), criar_lista(AVIAO_FINAL), criar_lista(PLATAFORMA2), True);
+JOGO_GAME_OVER = Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, True, True);
 
 
 ##TEMPLATE
@@ -73,66 +63,170 @@ def fn_para_jogo(jogo):
 '''===================='''
 ''' Funções: '''
 
-
 '''
-tock: EstadoMundo -> EstadoMundo
-Produz o próximo ...
-# !!! TODO
-def tock(estado):
-    pass
+cria_jogo_inicial: -> Lista 
+cria um novo jogo se necessario
 '''
 
+def cria_jogo_inicial():
+
+    PERSONAGEM_1 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_ASTEROIDE -50, LIMITE_ASTEROIDE),
+                              random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
+
+    PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_ASTEROIDE - 60, LIMITE_ASTEROIDE),
+                              random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
+
+    PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                              random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
+
+    PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                              random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
+
+    PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
+
+    PERSONAGEM_6 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
+
+    L_PERSONAGEM_MEIO = criar_lista(
+        PERSONAGEM_1, PERSONAGEM_2, PERSONAGEM_3, PERSONAGEM_4, PERSONAGEM_5, PERSONAGEM_6
+    )
+    return Jogo(JOGO_INICIAL.foguete, L_PERSONAGEM_MEIO, False, False)
 
 '''
-desenha: EstadoMundo -> Imagem
-Desenha...
-# !!! TODO
-def desenha(estado):
-    pass
+colidem: Foguete, Personagem -> Boolean
+se os personagens nao colidirem com o foguete retorna TRUE senao retorna FALSE
 '''
 
+def colidem(f, ps):
+    cima_foguete = f.y - METADE_H_FOGUETE
+    baixo_foguete = f.y + METADE_H_FOGUETE
+    direita_foguete = f.x + METADE_L_FOGUETE
+    esquerda_foguete = f.x - METADE_L_FOGUETE
+
+    cima_ps = ps.y - METADE_H_PS
+    baixo_ps = ps.y + METADE_H_PS
+    direita_ps = ps.x + METADE_L_PS
+    esquerda_ps = ps.x - METADE_L_PS
+
+    if ps.tipo != 3:
+
+        if f.y <= LIMITE_BAIXO:
+            return direita_foguete >= esquerda_ps and \
+                   esquerda_foguete <= direita_ps and \
+                   baixo_foguete >= cima_ps and \
+                   cima_foguete <= baixo_ps
+        return True
+
+    return False
 
 '''
-trata_tecla: EstadoMundo, Tecla -> EstadoMundo
-Quando teclar ... produz ... <apagar caso não precise usar>
-# !!! TODO
-Template:
-
-def trata_tecla(estado, tecla):
-    if tecla == pg.K_SPACE:
-        ... estado
-    else:
-        ... estado
+colide_algum_ps: Foguete, ListaPersonagem -> Boolean
 '''
-
+def colide_algum_ps(f, personagens):
+    return personagens.ormap(lambda ps: colidem(f, ps))
 
 '''
-trata_mouse: EstadoMundo, Int, Int, EventoMouse -> EstadoMundo:
-Quando fazer ... nas posições x y no mouse produz ...   <apagar caso não precise usar>
-# !!! TODO
-Template:
+check_win: Foguete, Personagem -> Boolean
+interp. se ganhou retorna True, senao retorna False
+'''
+def check_win(f, ps):
+    if ps.tipo == 3:
+        cima_foguete = f.y - METADE_H_FOGUETE
+        baixo_foguete = f.y + METADE_H_FOGUETE
+        direita_foguete = f.x + METADE_L_FOGUETE
+        esquerda_foguete = f.x - METADE_L_FOGUETE
 
-def trata_mouse(estado, x, y, ev):
+        cima_ps = ps.y - METADE_H_PS // 4
+        baixo_ps = ps.y + METADE_H_PS
+        direita_ps = ps.x + METADE_L_PS
+        esquerda_ps = ps.x - METADE_L_PS
 
-    if ev == pg.MOUSEMOTION:
-        ... estado
-    else:
-        ... estado
+        return direita_foguete >= esquerda_ps and \
+               esquerda_foguete <= direita_ps and \
+               baixo_foguete >= cima_ps and \
+               cima_foguete <= baixo_ps
+'''
+ganhou: Foguete, ListaPersonagem -> Boolean
+'''
+def ganhou(f, personagens):
+    return personagens.ormap(lambda ps: check_win(f, ps))
 
 '''
+mover_jogo: Jogo -> Jogo
+Produz o próximo estado do jogo
+'''
+def mover_jogo(j):
 
-''' ================= '''
-''' Main (Big Bang):'''
+    if not j.win:
+
+        if not j.game_over:
+
+            if not colide_algum_ps(j.foguete, j.personagens):
+
+                if not ganhou(j.foguete, j.personagens):
+
+                    return Jogo(move_foguete(j.foguete), mover_personagens(j.personagens), j.game_over, j.win)
+
+                return Jogo(move_foguete(j.foguete), mover_personagens(j.personagens), j.game_over, True)
+
+            return Jogo(move_foguete(j.foguete), mover_personagens(j.personagens), True, j.win)
+
+        return j
+
+    return j
 
 
-''' EstadoMundo -> EstadoMundo '''
-''' inicie o mundo com ...'''
-def main(m):
-    big_bang(m, tela=tela, frequencia= FREQUENCIA,
-             # quando_tick=tock,
-             # desenhar=desenha,
-             quando_tecla=...,
-             quando_solta_tecla=...
-             )
 
+'''
+desenha: Jogo -> Imagem
+Desenha o estado atual do jogo
+'''
+
+def desenha(j):
+    colocar_imagem(IMG_FUNDO, tela, LARGURA // 2, ALTURA // 2)
+
+    desenha_personagens(j.personagens)
+    desenha_foguete(j.foguete)
+
+    if j.game_over:
+        desenha_game_over()
+    if j.win:
+        desenha_win()
+
+
+'''
+desenha_game_over: -> Imagem
+'''
+
+def desenha_game_over():
+    texto_game_over = texto("GAME OVER", Fonte("comicsans", 50), Cor("red"))
+    colocar_imagem(texto_game_over, tela, LARGURA//2, ALTURA//2)
+
+'''
+desenha_win: -> Imagem
+'''
+def desenha_win():
+    texto_game_over = texto("YOU WON", Fonte("comicsans", 50), Cor("red"))
+    colocar_imagem(texto_game_over, tela, LARGURA//2, ALTURA//2)
+
+'''
+trata_tecla: Foguete, Tecla -> Foguete
+Quando teclar pra cima o foguete sobe, pra direita move o foguete para a direita e para a esquerda move o foguete para esquerda.
+'''
+
+def trata_tecla_jogo(j, tecla):
+    if tecla == pg.K_RETURN:
+        return cria_jogo_inicial()
+    return Jogo(trata_tecla(j.foguete, tecla), j.personagens, j.game_over, j.win)
+
+'''
+trata_solta_tecla: Foguete, Tecla -> Foguete
+interp. quando soltar a tecla devolve o novo estado do Foguete
+'''
+
+def trata_solta_tecla_jogo(j, tecla):
+    return Jogo(trata_solta_tecla(j.foguete, tecla), j.personagens, j.game_over, j.win)
 

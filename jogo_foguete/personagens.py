@@ -30,7 +30,7 @@ ASTEROIDE = 1
 
 #IMAGEM PLATAFORMA
 IMG_PLATAFORMA = carregar_imagem("imagens/plataforma.png")
-IMG_PLATAFORMA = definir_dimensoes(IMG_PLATAFORMA, 150,60)
+IMG_PLATAFORMA = definir_dimensoes(IMG_PLATAFORMA, 100,60)
 
 PLATAFORMA  = 3
 
@@ -67,17 +67,23 @@ PS_FIM = Personagem(600, 400, 1, 1, PLATAFORMA)
 PS_DIREITO = Personagem(600, 200, 1, 1, ASTEROIDE)
 PS_ESQUERDO = Personagem(0, 200, 1, 1, AVIAO)
 
-PERSONAGEM_1 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_ASTEROIDE),
-                          -random.randrange(5,15), random.randrange(0, 1), ASTEROIDE)
+LIMITE_SEGURANCA = 60
 
-PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_ASTEROIDE),
-                          random.randrange(5,15), random.randrange(0, 1), ASTEROIDE)
+PERSONAGEM_1 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                          random.randrange(LIMITE_ASTEROIDE -50, LIMITE_ASTEROIDE),
+                          random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
 
-PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
-                          random.randrange(5,10), random.randrange(1, 2), AVIAO)
+PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                          random.randrange(LIMITE_ASTEROIDE - 60, LIMITE_ASTEROIDE),
+                          random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
 
-PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
-                          random.randrange(5,10), random.randrange(1, 2), AVIAO)
+PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                          random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                          random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
+
+PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                          random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                          random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
 
 PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
 
@@ -120,7 +126,7 @@ L_PERSONAGEM_INICIAL = criar_lista(
     Personagem(300, 70, 1, 1, ASTEROIDE)
 )
 
-L_PERSONAGEM_MEIO = criar_lista( #randomizar
+L_PERSONAGEM_MEIO = criar_lista(
    PERSONAGEM_1, PERSONAGEM_2, PERSONAGEM_3, PERSONAGEM_4, PERSONAGEM_5, PERSONAGEM_6
 )
 
@@ -133,6 +139,8 @@ def fn_para_lista(lista):
         ... lista.primeiro
             fn_para_lista(lista.resto)
 '''
+
+
 
 '''===================='''
 ''' Funções: '''
