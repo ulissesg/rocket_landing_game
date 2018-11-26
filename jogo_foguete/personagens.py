@@ -78,11 +78,11 @@ PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, L
                           random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
 
 PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                          random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                          random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
                           random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
 
 PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                          random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                          random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
                           random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
 
 PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
@@ -186,7 +186,7 @@ def desenha_personagem(ps):
     if ps.tipo == ASTEROIDE:
         colocar_imagem(IMG_ASTEROIDE, tela, ps.x, ps.y)
 
-    elif ps.tipo == AVIAO and ps.x > 0:
+    elif ps.tipo == AVIAO and ps.x > 0: #TODO verificar porque o aviao some quando e 0.
         if ps.dx < 0:
             colocar_imagem(IMG_AVIAO_ESQUERDA, tela, ps.x, ps.y)
 

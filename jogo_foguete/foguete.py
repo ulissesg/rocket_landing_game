@@ -47,6 +47,8 @@ FOGUETE_INICIAL = Personagem(LIMITE_DIREITA//2, 0, DX, DY, FOGUETE)
 FOGUETE_MEIO = Personagem(LIMITE_DIREITA //2 , LIMITE_BAIXO //2, 2, -5, FOGUETE)
 FOGUETE_FINAL = Personagem(LIMITE_DIREITA//2, LIMITE_BAIXO, 3, -4, FOGUETE)
 
+MARGEM_SEGURANCA = 0.1
+
 #TEMPLATE
 '''
 def fn_para_foguete(f):
@@ -70,13 +72,13 @@ def move_foguete(f):
         if f.x <= LIMITE_ESQUERDA:
 
             if f.dy < 0:
-                return Personagem(f.x + 0.1, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
-            return Personagem(f.x + 0.1, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
+                return Personagem(f.x + MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
+            return Personagem(f.x + MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
 
         if f.x >= LIMITE_DIREITA:
             if f.dy < 0:
-                return Personagem(f.x - 0.1, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
-            return Personagem(f.x - 0.1, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
+                return Personagem(f.x - MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
+            return Personagem(f.x - MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
 
         if f.dy < 0:
             return Personagem(f.x + f.dx, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)

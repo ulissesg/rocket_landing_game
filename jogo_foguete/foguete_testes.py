@@ -16,17 +16,17 @@ class Test(unittest.TestCase):
 
         # Teste no limite direito
         self.assertEqual(move_foguete(Personagem(LIMITE_DIREITA , LIMITE_BAIXO //2, 2, -5, FOGUETE)),
-                         Personagem(LIMITE_DIREITA - 1, LIMITE_BAIXO //2 + (-5), 2, -5 - ACELERACAO_FOGUETE, FOGUETE))
+                         Personagem(LIMITE_DIREITA - MARGEM_SEGURANCA, LIMITE_BAIXO //2 + (-5), 2, -5 - ACELERACAO_FOGUETE, FOGUETE))
 
         self.assertEqual(move_foguete(Personagem(LIMITE_DIREITA , LIMITE_BAIXO //2, 2, 5, FOGUETE)),
-                         Personagem(LIMITE_DIREITA - 1, LIMITE_BAIXO //2 + 5, 2, 5 + ACELERACAO_FOGUETE_CIMA, FOGUETE))
+                         Personagem(LIMITE_DIREITA - MARGEM_SEGURANCA, LIMITE_BAIXO //2 + 5, 2, 5 + ACELERACAO_FOGUETE_CIMA, FOGUETE))
 
         # Teste no limite esquerdo
         self.assertEqual(move_foguete(Personagem(LIMITE_ESQUERDA , LIMITE_BAIXO //2, 2, -5, FOGUETE)),
-                         Personagem(LIMITE_ESQUERDA + 1, LIMITE_BAIXO //2 + (-5), 2, -5 - ACELERACAO_FOGUETE, FOGUETE))
+                         Personagem(LIMITE_ESQUERDA + MARGEM_SEGURANCA, LIMITE_BAIXO //2 + (-5), 2, -5 - ACELERACAO_FOGUETE, FOGUETE))
 
         self.assertEqual(move_foguete(Personagem(LIMITE_ESQUERDA , LIMITE_BAIXO //2, 2, 5, FOGUETE)),
-                         Personagem(LIMITE_ESQUERDA + 1, LIMITE_BAIXO //2 + 5, 2, 5 + ACELERACAO_FOGUETE_CIMA, FOGUETE))
+                         Personagem(LIMITE_ESQUERDA + MARGEM_SEGURANCA, LIMITE_BAIXO //2 + 5, 2, 5 + ACELERACAO_FOGUETE_CIMA, FOGUETE))
 
 
 

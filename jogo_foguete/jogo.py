@@ -65,7 +65,7 @@ def fn_para_jogo(jogo):
 
 '''
 cria_jogo_inicial: -> Lista 
-cria um novo jogo se necessario
+cria um novo jogo 
 '''
 
 def cria_jogo_inicial():
@@ -79,11 +79,11 @@ def cria_jogo_inicial():
                               random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
 
     PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                              random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
                               random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
 
     PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_CIMA, LIMITE_AVIAO),
+                              random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
                               random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
 
     PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
@@ -102,11 +102,11 @@ se os personagens nao colidirem com o foguete retorna TRUE senao retorna FALSE
 
 def colidem(f, ps):
     cima_foguete = f.y - METADE_H_FOGUETE
-    baixo_foguete = f.y + METADE_H_FOGUETE
+    baixo_foguete = f.y + METADE_H_FOGUETE // 2
     direita_foguete = f.x + METADE_L_FOGUETE
     esquerda_foguete = f.x - METADE_L_FOGUETE
 
-    cima_ps = ps.y - METADE_H_PS
+    cima_ps = ps.y - METADE_H_PS // 2
     baixo_ps = ps.y + METADE_H_PS
     direita_ps = ps.x + METADE_L_PS
     esquerda_ps = ps.x - METADE_L_PS
@@ -124,6 +124,7 @@ def colidem(f, ps):
 
 '''
 colide_algum_ps: Foguete, ListaPersonagem -> Boolean
+interp. verifica se algum personagem da lista esta colidindo com o foguete
 '''
 def colide_algum_ps(f, personagens):
     return personagens.ormap(lambda ps: colidem(f, ps))
@@ -148,8 +149,11 @@ def check_win(f, ps):
                esquerda_foguete <= direita_ps and \
                baixo_foguete >= cima_ps and \
                cima_foguete <= baixo_ps
+    return False
+
 '''
 ganhou: Foguete, ListaPersonagem -> Boolean
+interp. verifica se o foguete chegou em alguma plataforma da lista
 '''
 def ganhou(f, personagens):
     return personagens.ormap(lambda ps: check_win(f, ps))
@@ -199,6 +203,7 @@ def desenha(j):
 
 '''
 desenha_game_over: -> Imagem
+desenha game over na tela
 '''
 
 def desenha_game_over():
@@ -207,14 +212,16 @@ def desenha_game_over():
 
 '''
 desenha_win: -> Imagem
+desenha you win na tela 
 '''
 def desenha_win():
     texto_game_over = texto("YOU WON", Fonte("comicsans", 50), Cor("red"))
     colocar_imagem(texto_game_over, tela, LARGURA//2, ALTURA//2)
 
 '''
-trata_tecla: Foguete, Tecla -> Foguete
-Quando teclar pra cima o foguete sobe, pra direita move o foguete para a direita e para a esquerda move o foguete para esquerda.
+trata_tecla_jogo: Jogo, Tecla -> Jogo
+Quando teclar pra cima o foguete sobe, pra direita move o foguete para a direita e para a esquerda move o foguete para esquerda
+se teclar enter reinicia o jogo.
 '''
 
 def trata_tecla_jogo(j, tecla):
