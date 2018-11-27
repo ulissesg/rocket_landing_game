@@ -21,25 +21,30 @@ class Test(unittest.TestCase):
         self.assertEqual(ganhou(Personagem(310, 80, 0, 0, 4), L_PERSONAGEM_INICIAL), False)
 
     def test_mover_jogo(self):
-        self.assertEqual(mover_jogo(Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, False, True)),
-                         Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, False, True))
+        self.assertEqual(mover_jogo(Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 0, False, True)),
+                         Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 0, False, True))
 
-        self.assertEqual(mover_jogo(Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, True, False)),
-                         Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, True, False))
+        self.assertEqual(mover_jogo(Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 0, True, False)),
+                         Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 0, True, False))
 
-        self.assertEqual(mover_jogo(Jogo(Personagem(310, 80, 0, 0, 4), L_PERSONAGEM_INICIAL, False, False)),
-                         Jogo(move_foguete(Personagem(310, 80, 0, 0, 4)), mover_personagens(L_PERSONAGEM_INICIAL), True, False))
+        self.assertEqual(mover_jogo(Jogo(Personagem(310, 80, 0, 0, 4), L_PERSONAGEM_INICIAL, 0, False, False)),
+                         Jogo(move_foguete(Personagem(310, 80, 0, 0, 4)), mover_personagens(L_PERSONAGEM_INICIAL), 0, True, False))
 
-        self.assertEqual(mover_jogo(Jogo(Personagem(310, 200, 0, 0, 4), L_PERSONAGEM_INICIAL, False, False)),
-                         Jogo(move_foguete(Personagem(310, 200, 0, 0, 4)), mover_personagens(L_PERSONAGEM_INICIAL), False, True))
+        self.assertEqual(mover_jogo(Jogo(Personagem(310, 200, 0, 0, 4), L_PERSONAGEM_INICIAL, 0, False, False)),
+                         Jogo(move_foguete(Personagem(310, 200, 0, 0, 4)), mover_personagens(L_PERSONAGEM_INICIAL), 0, False, True))
 
-        self.assertEqual(mover_jogo(Jogo(Personagem(100, LIMITE_CIMA, 0, 0, 4), L_PERSONAGEM_INICIAL, False, False)),
+        self.assertEqual(mover_jogo(Jogo(Personagem(100, LIMITE_CIMA, 0, 0, 4), L_PERSONAGEM_INICIAL, 0, False, False)),
                          Jogo(move_foguete(Personagem(100, LIMITE_CIMA, 0, 0, 4)),
-                              mover_personagens(L_PERSONAGEM_INICIAL), False, False))
+                              mover_personagens(L_PERSONAGEM_INICIAL), 0, False, False))
 
-    # def test_trata_tecla_jogo(self):
+    def test_trata_tecla_jogo(self):
     #     self.assertEqual(trata_tecla_jogo(JOGO_MEIO, pg.K_RETURN), cria_jogo_inicial())
-    #     self.assertEqual(trata_tecla_jogo(JOGO_MEIO, TECLA_DIREITA), Jogo(trata_tecla(JOGO_MEIO.foguete, TECLA_DIREITA),
-    #                                                                       JOGO_MEIO.personagens, JOGO_MEIO.game_over, JOGO_MEIO.win))
+        self.assertEqual(trata_tecla_jogo(JOGO_MEIO, TECLA_DIREITA), Jogo(trata_tecla(JOGO_MEIO.foguete, TECLA_DIREITA),
+                                                                          JOGO_MEIO.personagens, JOGO_MEIO.booster,
+                                                                          JOGO_MEIO.game_over, JOGO_MEIO.win))
+
+        self.assertEqual(trata_tecla_jogo(JOGO_MEIO, TECLA_CIMA), Jogo(trata_tecla(JOGO_MEIO.foguete, TECLA_CIMA),
+                                                                        JOGO_MEIO.personagens, JOGO_MEIO.booster + PONTOS_BOOST,
+                                                                        JOGO_MEIO.game_over, JOGO_MEIO.win))
 
     #  teste cria novo jogo
