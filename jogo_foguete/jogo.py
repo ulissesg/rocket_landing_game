@@ -17,7 +17,7 @@ IMG_FUNDO = definir_dimensoes(IMG_FUNDO, LARGURA, ALTURA)
 
 FREQUENCIA= 30
 
-X_BOOST= LARGURA * 1.5
+X_BOOST= LARGURA // 2 * 1.5
 Y_BOOST= 50
 COR_BOOST= "red"
 TAMANHO_BOOST = 30
@@ -32,8 +32,6 @@ METADE_H_PS = altura_imagem(IMG_AVIAO) // 2
 LIMITE_CIMA_PLATAFORMA  = LIMITE_BAIXO - altura_imagem(IMG_PLATAFORMA)
 
 TECLA_ENTER = pg.K_RETURN
-
-
 
 '''==================='''
 '''# Definições de dados: '''
@@ -78,20 +76,20 @@ cria um novo jogo
 def cria_jogo_inicial():
 
     PERSONAGEM_1 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_ASTEROIDE -50, LIMITE_ASTEROIDE),
-                              random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
+                              random.randrange(LIMITE_ASTEROIDE - LIMITE_SEGURANCA, LIMITE_ASTEROIDE),
+                              random.randrange(1,20), random.randrange(1, 4), ASTEROIDE)
 
     PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_ASTEROIDE - 60, LIMITE_ASTEROIDE),
-                              random.randrange(-5,5), random.randrange(-1, 1), ASTEROIDE)
+                              random.randrange(LIMITE_ASTEROIDE - LIMITE_SEGURANCA, LIMITE_ASTEROIDE),
+                              random.randrange(1,20), random.randrange(1, 4), ASTEROIDE)
 
     PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
                               random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
-                              random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
+                              random.randrange(1,20), random.randrange(1, 4), AVIAO)
 
     PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
                               random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
-                              random.randrange(-3,3), random.randrange(-2, 2), AVIAO)
+                              random.randrange(1,20), random.randrange(1, 4), AVIAO)
 
     PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
 
@@ -218,6 +216,8 @@ desenha game over na tela
 def desenha_game_over():
     texto_game_over = texto("GAME OVER", Fonte("comicsans", 50), Cor("red"))
     colocar_imagem(texto_game_over, tela, LARGURA//2, ALTURA//2)
+    texto_continuar = texto("Tecle enter para jogar novamente", Fonte("comicsans", 30), Cor("red"))
+    colocar_imagem(texto_continuar, tela, LARGURA//2, ALTURA//1.8)
 
 '''
 desenha_win: -> Imagem
@@ -226,6 +226,8 @@ desenha you win na tela
 def desenha_won():
     texto_won = texto("YOU WON", Fonte("comicsans", 50), Cor("red"))
     colocar_imagem(texto_won, tela, LARGURA//2, ALTURA//2)
+    texto_continuar = texto("Tecle enter para jogar novamente", Fonte("comicsans", 30), Cor("red"))
+    colocar_imagem(texto_continuar, tela, LARGURA//2, ALTURA//1.8)
 
 
 '''

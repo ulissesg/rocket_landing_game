@@ -11,7 +11,6 @@ def main(j):
              desenhar=desenha,
              quando_tecla=trata_tecla_jogo,
              quando_solta_tecla=trata_solta_tecla_jogo,
-             modo_debug = True
              )
 
 
