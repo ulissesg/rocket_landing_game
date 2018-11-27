@@ -24,7 +24,7 @@ TAMANHO_BOOST = 30
 PONTOS_BOOST= 10
 FONTE_BOOST= "monospace"
 
-METADE_L_FOGUETE = largura_imagem(IMG_FOGUETE) // 2
+METADE_L_FOGUETE = largura_imagem(IMG_ASTEROIDE) // 2
 METADE_H_FOGUETE = altura_imagem(IMG_FOGUETE) // 2
 METADE_L_PS = largura_imagem(IMG_AVIAO) // 2
 METADE_H_PS = altura_imagem(IMG_AVIAO) // 2
@@ -107,10 +107,10 @@ se os personagens nao colidirem com o foguete retorna TRUE senao retorna FALSE
 '''
 
 def colidem(f, ps):
-    cima_foguete = f.y - METADE_H_FOGUETE
-    baixo_foguete = f.y + METADE_H_FOGUETE
-    direita_foguete = f.x + METADE_L_FOGUETE
-    esquerda_foguete = f.x - METADE_L_FOGUETE
+    cima_foguete = f.y - METADE_H_FOGUETE // 1.5
+    baixo_foguete = f.y + METADE_H_FOGUETE // 1.5
+    direita_foguete = f.x + METADE_L_FOGUETE // 1.5
+    esquerda_foguete = f.x - METADE_L_FOGUETE // 1.5
 
     cima_ps = ps.y - METADE_H_PS
     baixo_ps = ps.y + METADE_H_PS
@@ -235,11 +235,11 @@ desenha_boost: Int -> Imagem
 '''
 def desenha_boost(b):
     if b > 30:
-        texto_booster_maximo = texto("Boost: 30", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
+        texto_booster_maximo = texto("Boost: 30/30", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
         colocar_imagem(texto_booster_maximo, tela, X_BOOST, Y_BOOST)
 
     elif b <= 30:
-        texto_booster = texto("Boost: " + str(b), Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
+        texto_booster = texto("Boost: " + str(b) + "/30", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
         colocar_imagem(texto_booster, tela, X_BOOST, Y_BOOST)
 
 

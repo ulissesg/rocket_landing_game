@@ -14,7 +14,7 @@ tela = criar_tela_base(LARGURA, ALTURA)
 
 FREQUENCIA_FOGUETE = 30
 IMG_FOGUETE = carregar_imagem("imagens/foguete.png")
-IMG_FOGUETE = definir_dimensoes(IMG_FOGUETE, 60, 100)
+IMG_FOGUETE = definir_dimensoes(IMG_FOGUETE, 40, 100)
 
 FOGUETE = 4
 

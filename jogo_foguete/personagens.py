@@ -16,7 +16,7 @@ FREQUENCIA_PERSONAGENS = 30
 
  # IMAGEM AVIAO
 IMG_AVIAO = carregar_imagem("imagens/aviao.png")
-IMG_AVIAO = definir_dimensoes(IMG_AVIAO, 100, 100)
+IMG_AVIAO = definir_dimensoes(IMG_AVIAO, 100, 80)
 IMG_AVIAO_DIREITA = espelhar(IMG_AVIAO)
 IMG_AVIAO_ESQUERDA = IMG_AVIAO
 
@@ -24,7 +24,7 @@ AVIAO = 2
 
 #IMAGEM ASTEROIDE
 IMG_ASTEROIDE = carregar_imagem("imagens/asteroide.png")
-IMG_ASTEROIDE = definir_dimensoes(IMG_ASTEROIDE, 100, 100)
+IMG_ASTEROIDE = definir_dimensoes(IMG_ASTEROIDE, 80, 80)
 
 ASTEROIDE = 1
 
