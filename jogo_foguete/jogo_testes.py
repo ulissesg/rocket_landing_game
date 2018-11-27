@@ -40,11 +40,37 @@ class Test(unittest.TestCase):
     def test_trata_tecla_jogo(self):
     #     self.assertEqual(trata_tecla_jogo(JOGO_MEIO, pg.K_RETURN), cria_jogo_inicial())
         self.assertEqual(trata_tecla_jogo(JOGO_MEIO, TECLA_DIREITA), Jogo(trata_tecla(JOGO_MEIO.foguete, TECLA_DIREITA),
-                                                                          JOGO_MEIO.personagens, JOGO_MEIO.booster,
-                                                                          JOGO_MEIO.game_over, JOGO_MEIO.win))
+                                                                                      JOGO_MEIO.personagens, JOGO_MEIO.booster,
+                                                                                      JOGO_MEIO.game_over, JOGO_MEIO.win))
+
+        self.assertEqual(trata_tecla_jogo(JOGO_MEIO, TECLA_ESQUERDA), Jogo(trata_tecla(JOGO_MEIO.foguete, TECLA_ESQUERDA),
+                                                                                       JOGO_MEIO.personagens, JOGO_MEIO.booster,
+                                                                                       JOGO_MEIO.game_over, JOGO_MEIO.win))
 
         self.assertEqual(trata_tecla_jogo(JOGO_MEIO, TECLA_CIMA), Jogo(trata_tecla(JOGO_MEIO.foguete, TECLA_CIMA),
-                                                                        JOGO_MEIO.personagens, JOGO_MEIO.booster + PONTOS_BOOST,
-                                                                        JOGO_MEIO.game_over, JOGO_MEIO.win))
+                                                                                   JOGO_MEIO.personagens, JOGO_MEIO.booster + PONTOS_BOOST,
+                                                                                   JOGO_MEIO.game_over, JOGO_MEIO.win))
+
+        self.assertEqual(trata_tecla_jogo(JOGO_GAME_OVER, TECLA_CIMA), Jogo(JOGO_GAME_OVER.foguete, JOGO_GAME_OVER.personagens,
+                                                                            JOGO_GAME_OVER.booster + PONTOS_BOOST,
+                                                                            JOGO_GAME_OVER.game_over, JOGO_GAME_OVER.win))
+
+    def test_trata_solta_tecla_jogo(self):
+        self.assertEqual(trata_solta_tecla_jogo(JOGO_GAME_OVER, TECLA_CIMA), Jogo(Personagem(JOGO_GAME_OVER.foguete.x, JOGO_GAME_OVER.foguete.y,
+                                                                                             JOGO_GAME_OVER.foguete.dx, DY,
+                                                                                             JOGO_GAME_OVER.foguete.tipo),
+                                                                                  JOGO_GAME_OVER.personagens,JOGO_GAME_OVER.booster,
+                                                                                  JOGO_GAME_OVER.game_over, JOGO_GAME_OVER.win))
+
+        self.assertEqual(trata_solta_tecla_jogo(JOGO_GAME_OVER, TECLA_ESQUERDA),
+                         Jogo(trata_solta_tecla(JOGO_GAME_OVER.foguete, TECLA_ESQUERDA),
+                              JOGO_GAME_OVER.personagens, JOGO_GAME_OVER.booster, JOGO_GAME_OVER.game_over, JOGO_GAME_OVER.win))
+
+        self.assertEqual(trata_solta_tecla_jogo(JOGO_MEIO, TECLA_DIREITA), Jogo(trata_solta_tecla(JOGO_MEIO.foguete, TECLA_DIREITA),
+                                                                                JOGO_MEIO.personagens, JOGO_MEIO.booster,
+                                                                                JOGO_MEIO.game_over, JOGO_MEIO.win))
+
+        self.assertEqual(trata_solta_tecla_jogo(JOGO_GAME_OVER_2, TECLA_ESQUERDA), JOGO_GAME_OVER_2)
+
 
     #  teste cria novo jogo

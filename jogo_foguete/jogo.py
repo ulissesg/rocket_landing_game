@@ -17,9 +17,10 @@ IMG_FUNDO = definir_dimensoes(IMG_FUNDO, LARGURA, ALTURA)
 
 FREQUENCIA= 30
 
-X_BOOST=500
-Y_BOOST=50
-COR_BOOST= "black"
+X_BOOST= LARGURA * 1.5
+Y_BOOST= 50
+COR_BOOST= "red"
+TAMANHO_BOOST = 30
 PONTOS_BOOST= 10
 FONTE_BOOST= "monospace"
 
@@ -29,6 +30,8 @@ METADE_L_PS = largura_imagem(IMG_AVIAO) // 2
 METADE_H_PS = altura_imagem(IMG_AVIAO) // 2
 
 LIMITE_CIMA_PLATAFORMA  = LIMITE_BAIXO - altura_imagem(IMG_PLATAFORMA)
+
+TECLA_ENTER = pg.K_RETURN
 
 
 
@@ -41,11 +44,14 @@ interp. representa o jogo sendo ele conposto por um foguete, os personagens(obst
 um game over, e um check se ganhou.
 '''
 #EXEMPLOS:
-JOGO_INICIAL= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_MEIO, 0, False, False);
+JOGO_INICIAL= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_MEIO, 0, False, False)
 
-JOGO_MEIO= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 0, False, False);
+JOGO_MEIO= Jogo(FOGUETE_MEIO, L_PERSONAGEM_INICIAL, 0, False, False)
 
-JOGO_GAME_OVER = Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 3, True, True);
+JOGO_GAME_OVER = Jogo(FOGUETE_MEIO, L_PERSONAGEM_INICIAL, 30, True, True)
+
+JOGO_GAME_OVER_2= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 40, True, True)
+
 
 
 ##TEMPLATE
@@ -94,6 +100,7 @@ def cria_jogo_inicial():
     L_PERSONAGEM_MEIO = criar_lista(
         PERSONAGEM_1, PERSONAGEM_2, PERSONAGEM_3, PERSONAGEM_4, PERSONAGEM_5, PERSONAGEM_6
     )
+
     return Jogo(JOGO_INICIAL.foguete, L_PERSONAGEM_MEIO, 0, False, False)
 
 '''
@@ -173,8 +180,7 @@ def mover_jogo(j):
 
                 if not ganhou(j.foguete, j.personagens):
 
-                    # if j.booter <= PONTOS_BOOST * 3:
-                        return Jogo(move_foguete(j.foguete), mover_personagens(j.personagens), j.booster, j.game_over, j.win)
+                    return Jogo(move_foguete(j.foguete), mover_personagens(j.personagens), j.booster, j.game_over, j.win)
 
                 return Jogo(move_foguete(j.foguete), mover_personagens(j.personagens), j.booster, j.game_over, True)
 
@@ -196,11 +202,12 @@ def desenha(j):
 
     desenha_personagens(j.personagens)
     desenha_foguete(j.foguete)
+    desenha_boost(j.booster)
 
     if j.game_over:
         desenha_game_over()
     elif j.win:
-        desenha_win()
+        desenha_won()
 
 
 '''
@@ -216,9 +223,23 @@ def desenha_game_over():
 desenha_win: -> Imagem
 desenha you win na tela 
 '''
-def desenha_win():
-    texto_game_over = texto("YOU WON", Fonte("comicsans", 50), Cor("red"))
-    colocar_imagem(texto_game_over, tela, LARGURA//2, ALTURA//2)
+def desenha_won():
+    texto_won = texto("YOU WON", Fonte("comicsans", 50), Cor("red"))
+    colocar_imagem(texto_won, tela, LARGURA//2, ALTURA//2)
+
+
+'''
+desenha_boost: Int -> Imagem
+'''
+def desenha_boost(b):
+    if b > 30:
+        texto_booster_maximo = texto("Boost: 30", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
+        colocar_imagem(texto_booster_maximo, tela, X_BOOST, Y_BOOST)
+
+    elif b <= 30:
+        texto_booster = texto("Boost: " + str(b), Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
+        colocar_imagem(texto_booster, tela, X_BOOST, Y_BOOST)
+
 
 '''
 trata_tecla_jogo: Jogo, Tecla -> Jogo
@@ -228,12 +249,12 @@ se teclar enter reinicia o jogo.
 
 def trata_tecla_jogo(j, tecla):
     if tecla == TECLA_CIMA and j.booster >= PONTOS_BOOST * 3:
-        return j
+        return Jogo(j.foguete, j.personagens, j.booster + PONTOS_BOOST, j.game_over, j.win)
 
     elif tecla == TECLA_CIMA:
         return Jogo(trata_tecla(j.foguete, tecla), j.personagens, j.booster + PONTOS_BOOST, j.game_over, j.win)
 
-    elif tecla == pg.K_RETURN:
+    elif tecla == TECLA_ENTER:
         return cria_jogo_inicial()
 
     return Jogo(trata_tecla(j.foguete, tecla), j.personagens, j.booster, j.game_over, j.win)
@@ -242,14 +263,18 @@ def trata_tecla_jogo(j, tecla):
 
 
 '''
-trata_solta_tecla: Foguete, Tecla -> Foguete
+trata_solta_tecla: Jogo, Tecla -> Jogo
 interp. quando soltar a tecla devolve o novo estado do Foguete
 '''
 
 def trata_solta_tecla_jogo(j, tecla):
 
-    if tecla == TECLA_CIMA and j.booster >= PONTOS_BOOST * 3:
+    if tecla == TECLA_CIMA and j.booster > PONTOS_BOOST * 3:
         return j
+
+    if tecla == TECLA_CIMA and j.booster == PONTOS_BOOST * 3:
+        return Jogo(Personagem(j.foguete.x, j.foguete.y, j.foguete.dx, DY, j.foguete.tipo),
+                    j.personagens, j.booster, j.game_over, j.win)
 
     return Jogo(trata_solta_tecla(j.foguete, tecla), j.personagens, j.booster, j.game_over, j.win)
 
