@@ -1,6 +1,23 @@
 from jogo import *
 import unittest
 
+# FUNCAO PARA TESTAR A FUNCAO cria_jogo_incial
+
+novo_jogo = cria_jogo_inicial()
+
+def testa_jogo_inicial(novo_jogo):
+    if novo_jogo.personagens[0].x >= LIMITE_ESQUERDA + LIMITE_SEGURANCA and \
+            novo_jogo.personagens[0].x < LIMITE_DIREITA - LIMITE_SEGURANCA and \
+            novo_jogo.personagens[0].y >= LIMITE_ASTEROIDE - LIMITE_SEGURANCA and \
+            novo_jogo.personagens[0].y < LIMITE_ASTEROIDE and novo_jogo.personagens[0].dx >= 1 and \
+            novo_jogo.personagens[0].dx < 20 and novo_jogo.personagens[0].dy >= 1 and novo_jogo.personagens[0].dy < 20 and \
+            novo_jogo.personagens[4].x >= LIMITE_ESQUERDA and novo_jogo.personagens[4].x < LIMITE_DIREITA:
+        return True
+
+    return False
+
+#  TESTES DAS FUNCOES
+
 class Test(unittest.TestCase):
 
     def test_colidem(self):
@@ -75,5 +92,12 @@ class Test(unittest.TestCase):
 
         self.assertEqual(trata_solta_tecla_jogo(JOGO_GAME_OVER_2, TECLA_ESQUERDA), JOGO_GAME_OVER_2)
 
+    def test_cria_jogo_incial(self):
 
-    #  teste cria novo jogo
+        self.assertEqual(testa_jogo_inicial(novo_jogo), True)
+        self.assertEqual(testa_jogo_inicial(JOGO_INICIAL), True)
+
+
+
+
+

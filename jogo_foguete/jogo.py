@@ -21,13 +21,21 @@ X_BOOST= LARGURA // 2 * 1.5
 Y_BOOST= 50
 COR_BOOST= "red"
 TAMANHO_BOOST = 30
-PONTOS_BOOST= 10
+PONTOS_BOOST= 1
 FONTE_BOOST= "monospace"
 
-METADE_L_FOGUETE = largura_imagem(IMG_ASTEROIDE) // 2
+METADE_L_FOGUETE = largura_imagem(IMG_FOGUETE) // 2
 METADE_H_FOGUETE = altura_imagem(IMG_FOGUETE) // 2
-METADE_L_PS = largura_imagem(IMG_AVIAO) // 2
-METADE_H_PS = altura_imagem(IMG_AVIAO) // 2
+
+METADE_L_ASTEROIDE = largura_imagem(IMG_ASTEROIDE) // 2
+METADE_H_ASTEROIDE = altura_imagem(IMG_ASTEROIDE) // 2
+
+METADE_L_AVIAO = largura_imagem(IMG_AVIAO) // 2
+METADE_H_AVIAO = altura_imagem(IMG_AVIAO) // 2
+
+METADE_L_PLATAFORMA = largura_imagem(IMG_PLATAFORMA) // 2
+METADE_H_PLATAFORMA = altura_imagem(IMG_PLATAFORMA) // 2
+
 
 LIMITE_CIMA_PLATAFORMA  = LIMITE_BAIXO - altura_imagem(IMG_PLATAFORMA)
 
@@ -46,9 +54,9 @@ JOGO_INICIAL= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_MEIO, 0, False, False)
 
 JOGO_MEIO= Jogo(FOGUETE_MEIO, L_PERSONAGEM_INICIAL, 0, False, False)
 
-JOGO_GAME_OVER = Jogo(FOGUETE_MEIO, L_PERSONAGEM_INICIAL, 30, True, True)
+JOGO_GAME_OVER = Jogo(FOGUETE_MEIO, L_PERSONAGEM_INICIAL, 3, True, True)
 
-JOGO_GAME_OVER_2= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 40, True, True)
+JOGO_GAME_OVER_2= Jogo(FOGUETE_INICIAL, L_PERSONAGEM_INICIAL, 4, True, True)
 
 
 
@@ -70,7 +78,7 @@ def fn_para_jogo(jogo):
 
 '''
 cria_jogo_inicial: -> Lista 
-cria um novo jogo 
+cria um novo jogo com personagens aleatorios
 '''
 
 def cria_jogo_inicial():
@@ -112,10 +120,19 @@ def colidem(f, ps):
     direita_foguete = f.x + METADE_L_FOGUETE // 1.5
     esquerda_foguete = f.x - METADE_L_FOGUETE // 1.5
 
-    cima_ps = ps.y - METADE_H_PS
-    baixo_ps = ps.y + METADE_H_PS
-    direita_ps = ps.x + METADE_L_PS
-    esquerda_ps = ps.x - METADE_L_PS
+    if ps.tipo == 1:
+
+        cima_ps = ps.y - METADE_H_ASTEROIDE
+        baixo_ps = ps.y + METADE_H_ASTEROIDE
+        direita_ps = ps.x + METADE_L_ASTEROIDE
+        esquerda_ps = ps.x - METADE_L_ASTEROIDE
+
+    elif ps.tipo == 2:
+
+        cima_ps = ps.y - METADE_H_AVIAO
+        baixo_ps = ps.y + METADE_H_AVIAO
+        direita_ps = ps.x + METADE_L_AVIAO
+        esquerda_ps = ps.x - METADE_L_AVIAO
 
     if ps.tipo != 3:
 
@@ -146,10 +163,10 @@ def check_win(f, ps):
         direita_foguete = f.x + METADE_L_FOGUETE
         esquerda_foguete = f.x - METADE_L_FOGUETE
 
-        cima_ps = ps.y - METADE_H_PS // 4
-        baixo_ps = ps.y + METADE_H_PS
-        direita_ps = ps.x + METADE_L_PS
-        esquerda_ps = ps.x - METADE_L_PS
+        cima_ps = ps.y - METADE_H_PLATAFORMA // 2
+        baixo_ps = ps.y + METADE_H_PLATAFORMA
+        direita_ps = ps.x + METADE_L_PLATAFORMA
+        esquerda_ps = ps.x - METADE_L_PLATAFORMA
 
         return direita_foguete >= esquerda_ps and \
                esquerda_foguete <= direita_ps and \
@@ -234,12 +251,12 @@ def desenha_won():
 desenha_boost: Int -> Imagem
 '''
 def desenha_boost(b):
-    if b > 30:
-        texto_booster_maximo = texto("Boost: 30/30", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
+    if b > 3:
+        texto_booster_maximo = texto("Boost: 3/3", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
         colocar_imagem(texto_booster_maximo, tela, X_BOOST, Y_BOOST)
 
-    elif b <= 30:
-        texto_booster = texto("Boost: " + str(b) + "/30", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
+    elif b <= 3:
+        texto_booster = texto("Boost: " + str(b) + "/3", Fonte(FONTE_BOOST, TAMANHO_BOOST), Cor(COR_BOOST))
         colocar_imagem(texto_booster, tela, X_BOOST, Y_BOOST)
 
 
@@ -250,7 +267,7 @@ se teclar enter reinicia o jogo.
 '''
 
 def trata_tecla_jogo(j, tecla):
-    if tecla == TECLA_CIMA and j.booster >= PONTOS_BOOST * 3:
+    if tecla == TECLA_CIMA and j.booster >= 3:
         return Jogo(j.foguete, j.personagens, j.booster + PONTOS_BOOST, j.game_over, j.win)
 
     elif tecla == TECLA_CIMA:
@@ -271,12 +288,14 @@ interp. quando soltar a tecla devolve o novo estado do Foguete
 
 def trata_solta_tecla_jogo(j, tecla):
 
-    if tecla == TECLA_CIMA and j.booster > PONTOS_BOOST * 3:
+    if tecla == TECLA_CIMA and j.booster > 3:
         return j
 
-    if tecla == TECLA_CIMA and j.booster == PONTOS_BOOST * 3:
+    if tecla == TECLA_CIMA and j.booster == 3:
         return Jogo(Personagem(j.foguete.x, j.foguete.y, j.foguete.dx, DY, j.foguete.tipo),
                     j.personagens, j.booster, j.game_over, j.win)
 
     return Jogo(trata_solta_tecla(j.foguete, tecla), j.personagens, j.booster, j.game_over, j.win)
+
+
 

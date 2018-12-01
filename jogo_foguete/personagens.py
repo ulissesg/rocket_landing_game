@@ -14,43 +14,44 @@ tela = criar_tela_base(LARGURA, ALTURA)
 
 FREQUENCIA_PERSONAGENS = 30
 
- # IMAGEM AVIAO
+ #AVIAO
 IMG_AVIAO = carregar_imagem("imagens/aviao.png")
-IMG_AVIAO = definir_dimensoes(IMG_AVIAO, 100, 80)
+IMG_AVIAO = definir_dimensoes(IMG_AVIAO, 100, 70)
 IMG_AVIAO_DIREITA = espelhar(IMG_AVIAO)
 IMG_AVIAO_ESQUERDA = IMG_AVIAO
 
 AVIAO = 2
 
-#IMAGEM ASTEROIDE
+LIMITE_AVIAO = ALTURA // 4 *3.2 - altura_imagem(IMG_AVIAO) // 2
+
+DX_AVIAO = 5
+DY_AVIAO = 0.7
+
+#ASTEROIDE
 IMG_ASTEROIDE = carregar_imagem("imagens/asteroide.png")
 IMG_ASTEROIDE = definir_dimensoes(IMG_ASTEROIDE, 80, 80)
 
 ASTEROIDE = 1
 
-#IMAGEM PLATAFORMA
+LIMITE_ASTEROIDE = ALTURA // 2.5 - altura_imagem(IMG_ASTEROIDE) // 2
+
+DX_ASTEROIDE = 10
+DY_ASTEROIDE = 0.5
+
+#PLATAFORMA
 IMG_PLATAFORMA = carregar_imagem("imagens/plataforma.png")
 IMG_PLATAFORMA = definir_dimensoes(IMG_PLATAFORMA, 100,60)
 
 PLATAFORMA  = 3
 
+DX_PLATAFORMA = 0
+DY_PLATAFORMA = 0
+
+
 LIMITE_CIMA = altura_imagem(IMG_AVIAO) // 2 + 1
 LIMITE_BAIXO = ALTURA - altura_imagem(IMG_PLATAFORMA) // 2 -1
 LIMITE_DIREITA =LARGURA - largura_imagem(IMG_AVIAO) // 2 - 1
 LIMITE_ESQUERDA =largura_imagem(IMG_AVIAO) // 2 + 1
-
-LIMITE_ASTEROIDE = ALTURA // 2.5 - altura_imagem(IMG_ASTEROIDE) // 2
-
-LIMITE_AVIAO = ALTURA // 4 *3.2 - altura_imagem(IMG_AVIAO) // 2
-
-DX_ASTEROIDE = 10
-DY_ASTEROIDE = 0.5
-
-DX_AVIAO = 5
-DY_AVIAO = 0.7
-
-DX_PLATAFORMA = 0
-DY_PLATAFORMA = 0
 
 
 '''==================='''
@@ -180,13 +181,14 @@ def mover_personagem(ps):
 
 '''
 desenha_personagem: Personagem -> Imagem
+desenha um personagem na tela
 '''
 def desenha_personagem(ps):
 
     if ps.tipo == ASTEROIDE:
         colocar_imagem(IMG_ASTEROIDE, tela, ps.x, ps.y)
 
-    elif ps.tipo == AVIAO and ps.x > 0: #TODO verificar porque o aviao some quando e 0.
+    elif ps.tipo == AVIAO and ps.x > 0:
         if ps.dx < 0:
             colocar_imagem(IMG_AVIAO_ESQUERDA, tela, ps.x, ps.y)
 
