@@ -90,6 +90,7 @@ PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIM
 
 PERSONAGEM_6 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
 
+
 #TEMPLATE
 '''
 def fn_para_personagem(ps):
@@ -127,9 +128,7 @@ L_PERSONAGEM_INICIAL = criar_lista(
     Personagem(300, 70, 1, 1, ASTEROIDE)
 )
 
-L_PERSONAGEM_MEIO = criar_lista(
-   PERSONAGEM_1, PERSONAGEM_2, PERSONAGEM_3, PERSONAGEM_4, PERSONAGEM_5, PERSONAGEM_6
-)
+
 
 '''
 #template
@@ -146,6 +145,39 @@ def fn_para_lista(lista):
 '''===================='''
 ''' Funções: '''
 
+'''
+cria_lista_personagem: -> ListaPersonagem
+cria uma lista de personagens aleatoriamente
+'''
+
+def cria_lista_personagem():
+    PERSONAGEM_1 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_ASTEROIDE - LIMITE_SEGURANCA, LIMITE_ASTEROIDE),
+                              random.randrange(1,20), random.randrange(1, 4), ASTEROIDE)
+
+    PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_ASTEROIDE - LIMITE_SEGURANCA, LIMITE_ASTEROIDE),
+                              random.randrange(1,20), random.randrange(1, 4), ASTEROIDE)
+
+    PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
+                              random.randrange(1,20), random.randrange(1, 4), AVIAO)
+
+    PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
+                              random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
+                              random.randrange(1,20), random.randrange(1, 4), AVIAO)
+
+    PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
+
+    PERSONAGEM_6 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
+
+    L_PERSONAGEM = criar_lista(PERSONAGEM_1, PERSONAGEM_2, PERSONAGEM_3, PERSONAGEM_4, PERSONAGEM_5, PERSONAGEM_6)
+
+    return L_PERSONAGEM
+
+#lista usada no codigo do jogo
+
+L_PERSONAGEM_MEIO = cria_lista_personagem()
 
 '''
 mover_avioes: ListaPersonagem -> ListaPersonagem
@@ -157,25 +189,41 @@ def mover_personagens(personagens):
 
 
 '''
+muda_direcao_horizontal: Personagem-> Personagem
+muda a direcao na horizontal do personagem
+'''
+def muda_direcao_horizontal(ps):
+    return Personagem(ps.x - ps.dx, ps.y, -ps.dx, ps.dy, ps.tipo)
+
+'''
+muda_direcao_vertical: Personagem-> Personagem
+muda a direcao na vertical do personagem
+'''
+def muda_direcao_vertical(ps):
+    return Personagem(ps.x, ps.y - ps.dy, ps.dx, -ps.dy, ps.tipo)
+
+
+'''
 mover_aviao: Personagem -> Personagem
 interp. produz o proximo estado de um personagem
 '''
 
 def mover_personagem(ps):
 
-    if ps.tipo == ASTEROIDE:
+    if ps.tipo == ASTEROIDE or ps.tipo == AVIAO:
+
         if ps.x >= LIMITE_DIREITA or ps.x <= LIMITE_ESQUERDA:
-            return Personagem(ps.x - ps.dx, ps.y, -ps.dx, ps.dy, ps.tipo)
+            return muda_direcao_horizontal(ps)
 
-        if ps.y >= LIMITE_ASTEROIDE or ps.y <= LIMITE_CIMA:
-            return Personagem(ps.x, ps.y - ps.dy, ps.dx, -ps.dy, ps.tipo)
+        elif ps.tipo == ASTEROIDE:
 
-    if ps.tipo == AVIAO:
-        if ps.x >= LIMITE_DIREITA or ps.x <= LIMITE_ESQUERDA:
-            return Personagem(ps.x - ps.dx, ps.y, -ps.dx, ps.dy, ps.tipo)
+            if ps.y >= LIMITE_ASTEROIDE or ps.y <= LIMITE_CIMA:
+                return muda_direcao_vertical(ps)
 
-        if ps.y >= LIMITE_AVIAO or ps.y <= LIMITE_CIMA:
-            return Personagem(ps.x, ps.y - ps.dy, ps.dx, -ps.dy, ps.tipo)
+        elif ps.tipo == AVIAO:
+
+            if ps.y >= LIMITE_AVIAO or ps.y <= LIMITE_CIMA:
+                return muda_direcao_vertical(ps)
 
     return Personagem(ps.x + ps.dx, ps.y + ps.dy, ps.dx, ps.dy, ps.tipo)
 

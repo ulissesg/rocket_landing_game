@@ -64,6 +64,27 @@ def fn_para_foguete(f):
 
 
 '''
+passou_limite_esquerda: Foguete -> Foguete
+devolve o foguete que passou do limite da esquerda para dentro dos limites 
+'''
+
+def passou_limite_esquerda(f):
+
+    if f.dy < 0:
+        return Personagem(f.x + MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
+    return Personagem(f.x + MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
+
+'''
+passou_limite_direita: Foguete -> Foguete
+devolve o foguete que passou do limite da direita para dentro dos limites 
+'''
+def passou_limite_direita(f):
+
+    if f.dy < 0:
+        return Personagem(f.x - MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
+    return Personagem(f.x - MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
+
+'''
 move_foguete: Foguete -> Foguete
 Produz o próximo estado do foguete
 '''
@@ -72,14 +93,11 @@ def move_foguete(f):
 
         if f.x <= LIMITE_ESQUERDA:
 
-            if f.dy < 0:
-                return Personagem(f.x + MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
-            return Personagem(f.x + MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
+            return passou_limite_esquerda(f)
 
         if f.x >= LIMITE_DIREITA:
-            if f.dy < 0:
-                return Personagem(f.x - MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)
-            return Personagem(f.x - MARGEM_SEGURANCA, f.y + f.dy, f.dx, f.dy + ACELERACAO_FOGUETE_CIMA, FOGUETE)
+
+           return passou_limite_direita(f)
 
         if f.dy < 0:
             return Personagem(f.x + f.dx, f.y + f.dy, f.dx, f.dy - ACELERACAO_FOGUETE, FOGUETE)

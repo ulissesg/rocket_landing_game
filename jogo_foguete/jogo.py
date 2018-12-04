@@ -77,37 +77,11 @@ def fn_para_jogo(jogo):
 ''' Funções: '''
 
 '''
-cria_jogo_inicial: -> Lista 
-cria um novo jogo com personagens aleatorios
+cria_novo_jogo -> Jogo
+cria um novo jogo como os personagens aleatorios
 '''
-
-def cria_jogo_inicial():
-
-    PERSONAGEM_1 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_ASTEROIDE - LIMITE_SEGURANCA, LIMITE_ASTEROIDE),
-                              random.randrange(1,20), random.randrange(1, 4), ASTEROIDE)
-
-    PERSONAGEM_2 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_ASTEROIDE - LIMITE_SEGURANCA, LIMITE_ASTEROIDE),
-                              random.randrange(1,20), random.randrange(1, 4), ASTEROIDE)
-
-    PERSONAGEM_3 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
-                              random.randrange(1,20), random.randrange(1, 4), AVIAO)
-
-    PERSONAGEM_4 = Personagem(random.randrange(LIMITE_ESQUERDA + LIMITE_SEGURANCA, LIMITE_DIREITA - LIMITE_SEGURANCA),
-                              random.randrange(LIMITE_ASTEROIDE, LIMITE_AVIAO),
-                              random.randrange(1,20), random.randrange(1, 4), AVIAO)
-
-    PERSONAGEM_5 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
-
-    PERSONAGEM_6 = Personagem(random.randrange(LIMITE_ESQUERDA, LIMITE_DIREITA), LIMITE_BAIXO , DX_PLATAFORMA, DY_PLATAFORMA, PLATAFORMA)
-
-    L_PERSONAGEM_MEIO = criar_lista(
-        PERSONAGEM_1, PERSONAGEM_2, PERSONAGEM_3, PERSONAGEM_4, PERSONAGEM_5, PERSONAGEM_6
-    )
-
-    return Jogo(JOGO_INICIAL.foguete, L_PERSONAGEM_MEIO, 0, False, False)
+def cria_novo_jogo():
+    return Jogo(FOGUETE_INICIAL, cria_lista_personagem(), 0, False, False)
 
 '''
 colidem: Foguete, Personagem -> Boolean
@@ -120,21 +94,21 @@ def colidem(f, ps):
     direita_foguete = f.x + METADE_L_FOGUETE // 1.5
     esquerda_foguete = f.x - METADE_L_FOGUETE // 1.5
 
-    if ps.tipo == 1:
+    if ps.tipo == ASTEROIDE:
 
         cima_ps = ps.y - METADE_H_ASTEROIDE
         baixo_ps = ps.y + METADE_H_ASTEROIDE
         direita_ps = ps.x + METADE_L_ASTEROIDE
         esquerda_ps = ps.x - METADE_L_ASTEROIDE
 
-    elif ps.tipo == 2:
+    elif ps.tipo == AVIAO:
 
         cima_ps = ps.y - METADE_H_AVIAO
         baixo_ps = ps.y + METADE_H_AVIAO
         direita_ps = ps.x + METADE_L_AVIAO
         esquerda_ps = ps.x - METADE_L_AVIAO
 
-    if ps.tipo != 3:
+    if ps.tipo != PLATAFORMA:
 
         if f.y <= LIMITE_BAIXO:
             return direita_foguete >= esquerda_ps and \
@@ -157,7 +131,7 @@ check_win: Foguete, Personagem -> Boolean
 interp. se ganhou retorna True, senao retorna False
 '''
 def check_win(f, ps):
-    if ps.tipo == 3:
+    if ps.tipo == PLATAFORMA:
         cima_foguete = f.y - METADE_H_FOGUETE
         baixo_foguete = f.y + METADE_H_FOGUETE
         direita_foguete = f.x + METADE_L_FOGUETE
@@ -274,7 +248,7 @@ def trata_tecla_jogo(j, tecla):
         return Jogo(trata_tecla(j.foguete, tecla), j.personagens, j.booster + PONTOS_BOOST, j.game_over, j.win)
 
     elif tecla == TECLA_ENTER:
-        return cria_jogo_inicial()
+        return cria_novo_jogo()
 
     return Jogo(trata_tecla(j.foguete, tecla), j.personagens, j.booster, j.game_over, j.win)
 
