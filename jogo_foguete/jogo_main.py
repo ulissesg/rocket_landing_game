@@ -4,7 +4,7 @@ from jogo import *
 
 
 ''' Jogo -> Jogo '''
-''' inicie o mundo com JOGO_INICAL'''
+''' inicie o mundo com cria_novo_jogo'''
 def main(j):
     big_bang(j, tela=tela, frequencia= FREQUENCIA,
              quando_tick=mover_jogo,
@@ -14,4 +14,4 @@ def main(j):
              )
 
 
-main(JOGO_INICIAL)
+main(cria_novo_jogo())

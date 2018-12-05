@@ -84,38 +84,68 @@ def cria_novo_jogo():
     return Jogo(FOGUETE_INICIAL, cria_lista_personagem(), 0, False, False)
 
 '''
-colidem: Foguete, Personagem -> Boolean
-se os personagens nao colidirem com o foguete retorna TRUE senao retorna FALSE
+colide_asteroide: Foguete, Personagem -> Boolean
+verifica se o personagem do tipo asteroide esta colidindo com o foguete
 '''
 
-def colidem(f, ps):
+def colide_asteroide(f, ps):
+
     cima_foguete = f.y - METADE_H_FOGUETE // 1.5
     baixo_foguete = f.y + METADE_H_FOGUETE // 1.5
     direita_foguete = f.x + METADE_L_FOGUETE // 1.5
     esquerda_foguete = f.x - METADE_L_FOGUETE // 1.5
 
+    cima_ps = ps.y - METADE_H_ASTEROIDE
+    baixo_ps = ps.y + METADE_H_ASTEROIDE
+    direita_ps = ps.x + METADE_L_ASTEROIDE
+    esquerda_ps = ps.x - METADE_L_ASTEROIDE
+
+    if f.y <= LIMITE_BAIXO:
+        return direita_foguete >= esquerda_ps and \
+               esquerda_foguete <= direita_ps and \
+               baixo_foguete >= cima_ps and \
+               cima_foguete <= baixo_ps
+    return True
+
+'''
+colide_aviao: Foguete, Personagem -> Boolean
+verifica se o personagem do tipo aviao esta colidindo com o foguete
+'''
+
+def colide_aviao(f, ps):
+
+    cima_foguete = f.y - METADE_H_FOGUETE // 1.5
+    baixo_foguete = f.y + METADE_H_FOGUETE // 1.5
+    direita_foguete = f.x + METADE_L_FOGUETE // 1.5
+    esquerda_foguete = f.x - METADE_L_FOGUETE // 1.5
+
+    cima_ps = ps.y - METADE_H_AVIAO
+    baixo_ps = ps.y + METADE_H_AVIAO
+    direita_ps = ps.x + METADE_L_AVIAO
+    esquerda_ps = ps.x - METADE_L_AVIAO
+
+    if f.y <= LIMITE_BAIXO:
+        return direita_foguete >= esquerda_ps and \
+               esquerda_foguete <= direita_ps and \
+               baixo_foguete >= cima_ps and \
+               cima_foguete <= baixo_ps
+    return True
+
+
+'''
+colidem: Foguete, Personagem -> Boolean
+se os personagens nao colidirem com o foguete retorna TRUE senao retorna FALSE
+'''
+
+def colidem(f, ps):
+
     if ps.tipo == ASTEROIDE:
 
-        cima_ps = ps.y - METADE_H_ASTEROIDE
-        baixo_ps = ps.y + METADE_H_ASTEROIDE
-        direita_ps = ps.x + METADE_L_ASTEROIDE
-        esquerda_ps = ps.x - METADE_L_ASTEROIDE
+        return colide_asteroide(f, ps)
 
     elif ps.tipo == AVIAO:
 
-        cima_ps = ps.y - METADE_H_AVIAO
-        baixo_ps = ps.y + METADE_H_AVIAO
-        direita_ps = ps.x + METADE_L_AVIAO
-        esquerda_ps = ps.x - METADE_L_AVIAO
-
-    if ps.tipo != PLATAFORMA:
-
-        if f.y <= LIMITE_BAIXO:
-            return direita_foguete >= esquerda_ps and \
-                   esquerda_foguete <= direita_ps and \
-                   baixo_foguete >= cima_ps and \
-                   cima_foguete <= baixo_ps
-        return True
+        return colide_aviao(f, ps)
 
     return False
 
@@ -127,25 +157,35 @@ def colide_algum_ps(f, personagens):
     return personagens.ormap(lambda ps: colidem(f, ps))
 
 '''
+colide_plataforma: Foguete, Personagem -> Boolean
+verifica se o foguete ja pousou na plataforma
+'''
+
+def colide_plataforma(f, ps):
+
+    cima_foguete = f.y - METADE_H_FOGUETE
+    baixo_foguete = f.y + METADE_H_FOGUETE
+    direita_foguete = f.x + METADE_L_FOGUETE
+    esquerda_foguete = f.x - METADE_L_FOGUETE
+
+    cima_ps = ps.y - METADE_H_PLATAFORMA // 2
+    baixo_ps = ps.y + METADE_H_PLATAFORMA
+    direita_ps = ps.x + METADE_L_PLATAFORMA
+    esquerda_ps = ps.x - METADE_L_PLATAFORMA
+
+    return direita_foguete >= esquerda_ps and \
+           esquerda_foguete <= direita_ps and \
+           baixo_foguete >= cima_ps and \
+           cima_foguete <= baixo_ps
+
+'''
 check_win: Foguete, Personagem -> Boolean
 interp. se ganhou retorna True, senao retorna False
 '''
 def check_win(f, ps):
     if ps.tipo == PLATAFORMA:
-        cima_foguete = f.y - METADE_H_FOGUETE
-        baixo_foguete = f.y + METADE_H_FOGUETE
-        direita_foguete = f.x + METADE_L_FOGUETE
-        esquerda_foguete = f.x - METADE_L_FOGUETE
+        return colide_plataforma(f, ps)
 
-        cima_ps = ps.y - METADE_H_PLATAFORMA // 2
-        baixo_ps = ps.y + METADE_H_PLATAFORMA
-        direita_ps = ps.x + METADE_L_PLATAFORMA
-        esquerda_ps = ps.x - METADE_L_PLATAFORMA
-
-        return direita_foguete >= esquerda_ps and \
-               esquerda_foguete <= direita_ps and \
-               baixo_foguete >= cima_ps and \
-               cima_foguete <= baixo_ps
     return False
 
 '''

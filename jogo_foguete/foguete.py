@@ -19,8 +19,8 @@ IMG_FOGUETE = definir_dimensoes(IMG_FOGUETE, 40, 100)
 FOGUETE = 4
 
 LIMITE_BAIXO = ALTURA - altura_imagem(IMG_FOGUETE) // 4
-LIMITE_DIREITA = LARGURA - largura_imagem(IMG_FOGUETE) // 4
-LIMITE_ESQUERDA = 0 + largura_imagem(IMG_FOGUETE) // 4
+LIMITE_DIREITA = LARGURA - largura_imagem(IMG_FOGUETE) // 4 - 20
+LIMITE_ESQUERDA = 0 + largura_imagem(IMG_FOGUETE) // 4 + 20
 LIMITE_CIMA = 0 + altura_imagem(IMG_FOGUETE)
 
 DX = 0
@@ -126,10 +126,10 @@ def trata_tecla(f, tecla):
             return Personagem(f.x, f.y, f.dx, -DDY, FOGUETE)
 
         elif tecla == TECLA_DIREITA:
-                return Personagem(f.x , f.y, DDX, f.dy, FOGUETE)
+                return Personagem(f.x, f.y, DDX, f.dy, FOGUETE)
 
         elif tecla == TECLA_ESQUERDA:
-                return Personagem(f.x , f.y, -DDX, f.dy, FOGUETE)
+                return Personagem(f.x, f.y, -DDX, f.dy, FOGUETE)
 
         return f
 
@@ -145,6 +145,6 @@ def trata_solta_tecla(f, t):
         return Personagem(f.x, f.y, f.dx, DY, FOGUETE)
 
     if t == TECLA_ESQUERDA or t == TECLA_DIREITA:
-        return Personagem(f.x , f.y, 0, f.dy, FOGUETE)
+        return Personagem(f.x, f.y, 0, f.dy, FOGUETE)
 
     return f
